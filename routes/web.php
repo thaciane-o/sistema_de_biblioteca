@@ -6,7 +6,7 @@ use App\Http\Controllers\Auth\Register;
 use App\Http\Controllers\ChirpController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [ChirpController::class, 'index']);
+Route::get('/home', [ChirpController::class, 'index']);
 
 // Protected routes
 Route::middleware('auth')->group(function () {
@@ -24,7 +24,7 @@ Route::post('/register', Register::class)
     ->middleware('guest');
 
 // Login routes
-Route::view('/login', 'auth.login')
+Route::view('/', 'auth.login')
     ->middleware('guest')
     ->name('login');
 Route::post('/login', Login::class)

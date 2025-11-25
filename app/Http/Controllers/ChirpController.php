@@ -17,7 +17,7 @@ class ChirpController extends Controller
             ->take(50)  // Limit to 50 most recent chirps
             ->get();
 
-        return view('home', ['chirps' => $chirps]);
+        return view('tables', ['chirps' => $chirps]);
     }
 
     /**

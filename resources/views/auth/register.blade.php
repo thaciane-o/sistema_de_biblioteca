@@ -80,7 +80,7 @@
                     <div class="divider">OR</div>
                     <p class="text-center text-sm">
                         Already have an account?
-                        <a href="/login" class="link link-primary">Sign in</a>
+                        <a href="/" class="link link-primary">Sign in</a>
                     </p>
                 </div>
             </div>
