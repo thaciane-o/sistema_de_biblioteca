@@ -26,6 +26,9 @@
 
 <body class="min-h-screen flex flex-col
         bg-base-200 font-sans">
+    <nav class="navbar" style="background: transparent; border: 0;">
+
+    </nav>
     <!-- Success Toast -->
     @if (session('success'))
         <div class="toast toast-top toast-center">

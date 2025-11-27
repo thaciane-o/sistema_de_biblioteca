@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\Auth\Logout;
 use App\Http\Controllers\Auth\Register;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PessoaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/home', [HomeController::class, 'index']);
@@ -26,3 +27,5 @@ Route::post('/login', Login::class)
 Route::post('/logout', Logout::class)
     ->middleware('auth')
     ->name('logout');
+
+Route::get('/pessoa', [PessoaController::class, 'index']);
