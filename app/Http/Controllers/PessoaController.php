@@ -42,7 +42,7 @@ class PessoaController extends Controller
 
         try {
             if ($validator->fails()) {
-                throw new Exception("Confira os campos e tente novamente!");
+                return redirect()->intended('/pessoa')->with('error', 'Confira os campos e tente novamente!');
             }
 
             DB::beginTransaction();
@@ -58,7 +58,7 @@ class PessoaController extends Controller
             return redirect()->intended('/pessoa')->with('success', 'Cadastro realizado com sucesso!');
         } catch (Exception $e) {
             DB::rollBack();
-            return back()->withErrors(['Erro' => $e]);
+            return redirect()->intended('/pessoa')->with('error', $e->getMessage());
         }
     }
 
