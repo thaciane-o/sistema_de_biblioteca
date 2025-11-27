@@ -42,7 +42,7 @@ class PessoaController extends Controller
 
         try {
             if ($validator->fails()) {
-                throw new Exception("Confira os campos e tente novamente!");
+                return redirect()->intended('/pessoa')->with('error', 'Confira os campos e tente novamente!');
             }
 
             DB::beginTransaction();
