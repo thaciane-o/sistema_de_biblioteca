@@ -33,10 +33,11 @@ class PessoaController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
         $validator = Validator::make($request->all(), [
-            'nome'  => 'required|string',
-            'cpf'   => 'required|string|max:11',
+            'nome'      => 'required|string',
+            'cpf'       => 'required|string|max:11',
+            'telefone'  => 'required|string|max:11',
+            'endereco'  => 'required|string',
         ]);
 
         try {
@@ -47,8 +48,10 @@ class PessoaController extends Controller
             DB::beginTransaction();
 
             Pessoa::create([
-                'nome'  => $request->nome,
-                'cpf'   => $request->cpf,
+                'nome'      => $request->nome,
+                'cpf'       => $request->cpf,
+                'telefone'  => $request->telefone,
+                'endereco'  => $request->endereco,
             ]);
 
             DB::commit();

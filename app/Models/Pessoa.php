@@ -11,11 +11,15 @@ class Pessoa extends Model
     protected $fillable = [
         'nome',
         'cpf',
+        'telefone',
+        'endereco',
     ];
 
     protected $casts = [
-        'nome' => 'string',
-        'cpf' => 'string',
+        'nome'      => 'string',
+        'cpf'       => 'string',
+        'telefone'  => 'string',
+        'endereco'  => 'string',
     ];
 
     public function cliente()
