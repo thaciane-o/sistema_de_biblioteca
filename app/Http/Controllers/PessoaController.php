@@ -25,7 +25,7 @@ class PessoaController extends Controller
      */
     public function create()
     {
-        //
+        return view('pessoa.create');
     }
 
     /**
@@ -33,6 +33,7 @@ class PessoaController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
         $validator = Validator::make($request->all(), [
             'nome'  => 'required|string',
             'cpf'   => 'required|string|max:11',

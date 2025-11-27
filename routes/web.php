@@ -28,4 +28,7 @@ Route::post('/logout', Logout::class)
     ->middleware('auth')
     ->name('logout');
 
-Route::get('/pessoa', [PessoaController::class, 'index']);
+// Rotas relacionadas a pessoa
+Route::get('/pessoa', [PessoaController::class, 'index'])->name('pessoa');
+Route::get('/pessoa/create', [PessoaController::class, 'create'])->name('pessoa.create');
+Route::post('/pessoa/create', [PessoaController::class, 'store'])->name('pessoa.store');
