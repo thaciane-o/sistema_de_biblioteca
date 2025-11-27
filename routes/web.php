@@ -29,6 +29,6 @@ Route::post('/logout', Logout::class)
     ->name('logout');
 
 // Rotas relacionadas a pessoa
-Route::get('/pessoa', [PessoaController::class, 'index'])->name('pessoa');
+Route::get('/pessoa', [PessoaController::class, 'index'])->name('pessoa.index');
 Route::get('/pessoa/create', [PessoaController::class, 'create'])->name('pessoa.create');
 Route::post('/pessoa/create', [PessoaController::class, 'store'])->name('pessoa.store');

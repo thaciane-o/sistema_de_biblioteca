@@ -41,6 +41,12 @@
         $(document).ready(function() {
             $('#inputCPF').mask("000.000.000-00");
             $('#inputTelefone').mask('(00) 00000-0000');
+
+            $('form').on('submit', function () {
+                $('#inputCPF').val($('#inputCPF').cleanVal());
+                $('#inputTelefone').val($('#inputTelefone').cleanVal());
+            });
         });
+
     </script>
 </x-layoutBase>

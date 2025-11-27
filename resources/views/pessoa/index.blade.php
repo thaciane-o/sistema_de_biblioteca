@@ -7,7 +7,7 @@
             <li class="breadcrumb-item active">Pessoa</li>
         </ol>
         <div class="text-end mb-2">
-            <a class="btn btn-primary btn-block px-3 py-2" href="/pessoa/create"> <i class="fas fa-plus me-1"></i> Criar</a>
+            <a class="btn btn-primary btn-block px-3 py-2" href="{{ route('pessoa.create') }}"> <i class="fas fa-plus me-1"></i> Criar</a>
         </div>
         <div class="card mb-4">
             <div class="card-header">
@@ -15,20 +15,28 @@
                 Dados das pessoas
             </div>
             <div class="card-body">
-                <table id="datatablesSimple">
+                <table id="datatablesSimple" style="table-layout: fixed; width: 100%;">
                     <thead>
                     <tr>
                         <th>ID</th>
                         <th>NOME</th>
                         <th>CPF</th>
+                        <th>TELEFONE</th>
+                        <th>ENDEREÇO</th>
+                        <th>OPÇÕES</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($pessoas as $pessoa)
                         <tr>
-                            <td>{{ $pessoa->id  }}</td>
-                            <td>{{ $pessoa->nome  }}</td>
-                            <td>{{ $pessoa->cpf  }}</td>
+                            <td>{{ $pessoa->id }}</td>
+                            <td>{{ $pessoa->nome }}</td>
+                            <td>{{ $pessoa->cpf }}</td>
+                            <td>{{ $pessoa->telefone }}</td>
+                            <td>{{ $pessoa->endereco }}</td>
+                            <td>
+                                <a>OPC</a>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

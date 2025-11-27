@@ -49,7 +49,7 @@
                             Empréstimo
                         </a>
                         <div class="sb-sidenav-menu-heading">Cadastros</div>
-                        <a class="nav-link collapsed" href="/pessoa">
+                        <a class="nav-link collapsed" href="{{ route('pessoa.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                             Pessoa
                         </a>

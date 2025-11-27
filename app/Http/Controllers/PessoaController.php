@@ -33,10 +33,11 @@ class PessoaController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
         $validator = Validator::make($request->all(), [
-            'nome'  => 'required|string',
-            'cpf'   => 'required|string|max:11',
+            'nome' => 'required|string',
+            'cpf' => 'required|string|max:11',
+            'telefone' => 'required|string|max:11',
+            'endereco' => 'required|string',
         ]);
 
         try {
@@ -46,16 +47,21 @@ class PessoaController extends Controller
 
             DB::beginTransaction();
 
-            Pessoa::create([
-                'nome'  => $request->nome,
-                'cpf'   => $request->cpf,
-            ]);
+            DB::insert('INSERT INTO pessoa (nome, cpf, telefone, endereco) VALUES (?,?,?,?)',
+                [
+                    $request->input('nome'),
+                    $request->input('cpf'),
+                    $request->input('telefone'),
+                    $request->input('endereco')
+                ]
+            );
 
             DB::commit();
-            return redirect()->intended('/pessoa')->with('success', 'Cadastro realizado com sucesso!');
+
+            return redirect()->route('pessoa.index')->with('success', 'Cadastro realizado com sucesso!');
         } catch (Exception $e) {
             DB::rollBack();
-            return back()->withErrors(['Erro' => $e]);
+            return back()->withErrors(['Erro' => $e->getMessage()]);
         }
     }
 
@@ -91,7 +97,8 @@ class PessoaController extends Controller
         //
     }
 
-    public function dados(DataTables $datatables) {
+    public function dados(DataTables $datatables)
+    {
         $pessoas = DB::table('pessoa')->select('id', 'nome', 'cpf')->get();
 
         return $datatables->eloquent($pessoas)
