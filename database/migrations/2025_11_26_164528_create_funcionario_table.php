@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('funcionario', function (Blueprint $table) {
             $table->id();
-            $table->string('matricula');
+            $table->string('matricula', length: 10);
             $table->date('dataAdmissao');
             $table->date('dataDemissao')->nullable();
             $table->unsignedBigInteger('pessoa_id');

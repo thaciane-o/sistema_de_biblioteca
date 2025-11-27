@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->char('cpf', length: 11);
+            $table->string('telefone', length: 11);
+            $table->string('endereco');
             $table->timestamps();
             $table->softDeletes();
         });
