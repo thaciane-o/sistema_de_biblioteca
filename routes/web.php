@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PessoaController;
 use Illuminate\Support\Facades\Route;
 
+// Página inicial
 Route::get('/home', [HomeController::class, 'index']);
 
 // Registration routes
@@ -28,10 +29,11 @@ Route::post('/logout', Logout::class)
     ->middleware('auth')
     ->name('logout');
 
-// Rotas relacionadas a pessoa
+// Pessoa
 Route::get('/pessoa', [PessoaController::class, 'index'])->name('pessoa.index');
 Route::get('/pessoa/create', [PessoaController::class, 'create'])->name('pessoa.create');
 Route::post('/pessoa/create', [PessoaController::class, 'store'])->name('pessoa.store');
 Route::get('/pessoa/edit/{id}', [PessoaController::class, 'edit'])->name('pessoa.edit');
 Route::post('/pessoa/edit/{id}', [PessoaController::class, 'update'])->name('pessoa.update');
 Route::get('/pessoa/destroy/{id}', [PessoaController::class, 'destroy'])->name('pessoa.destroy');
+Route::get('/pessoa/show/{id}', [PessoaController::class, 'show'])->name('pessoa.show');

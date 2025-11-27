@@ -16,7 +16,7 @@ class PessoaController extends Controller
      */
     public function index()
     {
-        $pessoas = DB::select('SELECT * FROM pessoa');
+        $pessoas = DB::select('SELECT id, nome, telefone FROM pessoa');
 
         return view('pessoa.index', ['pessoas' => $pessoas]);
     }
@@ -71,7 +71,9 @@ class PessoaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $pessoa = DB::select('SELECT * FROM pessoa WHERE id = ?', [$id]);
+
+        return view('pessoa.show', ['pessoa' => $pessoa]);
     }
 
     /**
