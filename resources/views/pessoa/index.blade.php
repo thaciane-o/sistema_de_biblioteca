@@ -35,7 +35,8 @@
                             <td>{{ $pessoa->telefone }}</td>
                             <td>{{ $pessoa->endereco }}</td>
                             <td>
-                                <a>OPC</a>
+                                <a href="{{ route('pessoa.edit', $pessoa->id)  }}" class="text-primary me-2"><i class="fas fa-edit"></i></a>
+                                <a href="{{ route('pessoa.destroy', $pessoa->id) }}" class="text-danger"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                     @endforeach

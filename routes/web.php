@@ -32,3 +32,6 @@ Route::post('/logout', Logout::class)
 Route::get('/pessoa', [PessoaController::class, 'index'])->name('pessoa.index');
 Route::get('/pessoa/create', [PessoaController::class, 'create'])->name('pessoa.create');
 Route::post('/pessoa/create', [PessoaController::class, 'store'])->name('pessoa.store');
+Route::get('/pessoa/edit/{id}', [PessoaController::class, 'edit'])->name('pessoa.edit');
+Route::post('/pessoa/edit/{id}', [PessoaController::class, 'update'])->name('pessoa.update');
+Route::get('/pessoa/destroy/{id}', [PessoaController::class, 'destroy'])->name('pessoa.destroy');

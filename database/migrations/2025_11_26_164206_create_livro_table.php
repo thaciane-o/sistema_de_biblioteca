@@ -21,7 +21,6 @@ return new class extends Migration
             $table->integer('qtdDisponivel');
             $table->string('descricao')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
