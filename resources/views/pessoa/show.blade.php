@@ -1,5 +1,0 @@
-<x-layoutBase>
-
-
-
-</x-layoutBase>

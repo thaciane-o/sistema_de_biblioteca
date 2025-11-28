@@ -2,7 +2,7 @@
     <div class="container-fluid px-4">
         <h1 class="mt-4">Pessoa</h1>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/home">Página inicial</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('home') }}">Página inicial</a></li>
             <li class="breadcrumb-item active">Cadastros</li>
             <li class="breadcrumb-item active">Pessoa</li>
             <li class="breadcrumb-item active">Criar</li>
@@ -49,7 +49,7 @@
                     </div>
                     <div class="mt-4 mb-0">
                         <div class="col-12 text-end">
-                            <a class="btn btn-primary btn-block" href="/pessoa"> <i class="fas fa-reply me-1"></i>
+                            <a class="btn btn-primary btn-block" href="{{ route('pessoa.index') }}"> <i class="fas fa-reply me-1"></i>
                                 Voltar</a>
                             <button type="submit" class="btn btn-primary btn-block">
                                 Cadastrar

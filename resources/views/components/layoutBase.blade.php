@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body class="sb-nav-fixed">
     @if (session('success'))
@@ -87,7 +88,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
                             Livro
                         </a>
-                        <a class="nav-link collapsed" href="#">
+                        <a class="nav-link collapsed" href="{{ route('autor.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-pen-nib"></i></div>
                             Autor
                         </a>
@@ -124,5 +125,27 @@
     <script src="js/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
+
+    <script>
+        function formatarCPF(cpf) {
+            if (!cpf) return "";
+            return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+        }
+
+        function formatarTelefone(tel) {
+            if (!tel) return "";
+            return tel.replace(/^(\d{2})(\d{4,5})(\d{4})$/, "($1) $2-$3");
+        }
+
+        function formatarData(data) {
+            if (!data) return "";
+
+            const [datas, horario] = data.split(" ");
+            const [ano, mes, dia] = datas.split("-");
+
+            return `${dia}/${mes}/${ano} ${horario}`;
+        }
+
+    </script>
 </body>
 </html>

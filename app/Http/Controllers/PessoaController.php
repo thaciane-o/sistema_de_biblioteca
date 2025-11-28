@@ -73,7 +73,9 @@ class PessoaController extends Controller
     {
         $pessoa = DB::select('SELECT * FROM pessoa WHERE id = ?', [$id]);
 
-        return view('pessoa.show', ['pessoa' => $pessoa]);
+        return response()->json([
+            'pessoa' => $pessoa[0]
+        ]);
     }
 
     /**
