@@ -92,7 +92,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-pen-nib"></i></div>
                             Autor
                         </a>
-                        <a class="nav-link collapsed" href="#">
+                        <a class="nav-link collapsed" href="{{ route('editora.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-globe"></i></div>
                             Editora
                         </a>

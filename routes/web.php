@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\Register;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PessoaController;
 use App\Http\Controllers\AutorController;
+use App\Http\Controllers\EditoraController;
 use Illuminate\Support\Facades\Route;
 
 // Página inicial
@@ -47,3 +48,12 @@ Route::get('/autor/edit/{id}', [AutorController::class, 'edit'])->name('autor.ed
 Route::post('/autor/edit/{id}', [AutorController::class, 'update'])->name('autor.update');
 Route::get('/autor/destroy/{id}', [AutorController::class, 'destroy'])->name('autor.destroy');
 Route::get('/autor/show/{id}', [AutorController::class, 'show'])->name('autor.show');
+
+// Editora
+Route::get('/editora', [EditoraController::class, 'index'])->name('editora.index');
+Route::get('/editora/create', [EditoraController::class, 'create'])->name('editora.create');
+Route::post('/editora/create', [EditoraController::class, 'store'])->name('editora.store');
+Route::get('/editora/edit/{id}', [EditoraController::class, 'edit'])->name('editora.edit');
+Route::post('/editora/edit/{id}', [EditoraController::class, 'update'])->name('editora.update');
+Route::get('/editora/destroy/{id}', [EditoraController::class, 'destroy'])->name('editora.destroy');
+Route::get('/editora/show/{id}', [EditoraController::class, 'show'])->name('editora.show');
