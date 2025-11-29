@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -102,8 +103,12 @@ class LivroController extends Controller
     {
         $livro = DB::select('SELECT * FROM livro WHERE id = ?', [$id]);
 
+        $autores = DB::select('SELECT autor.nome FROM livro INNER JOIN escrito ON (livro.id = escrito.livro_id)
+		    INNER JOIN autor ON (autor.id = escrito.autor_id) WHERE livro.id = ?', [$id]);
+
         return response()->json([
-            'livro' => $livro[0]
+            'livro' => $livro[0],
+            'autores' => $autores
         ]);
     }
 

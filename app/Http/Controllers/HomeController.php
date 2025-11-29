@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Chirp;
+use Exception;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller

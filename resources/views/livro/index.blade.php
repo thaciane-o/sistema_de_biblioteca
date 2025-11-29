@@ -84,11 +84,12 @@
                 url: "{{ route('livro.show', ['id' => '__ID__']) }}".replace('__ID__', id),
                 method: 'GET',
                 success: function (data) {
-                    console.log(data);
                     const isbn = formatarISBN(data.livro.isbn);
                     const data_publicacao = formatarData(data.livro.dataPublicacao);
                     const criado_em = formatarData(data.livro.created_at);
                     const atualizado_em = formatarData(data.livro.updated_at);
+
+                    let autores = data.autores.map(a => a.nome).join(', ');
 
                     modal.find('.modal-infos').html(`
                         <div class="row mb-3">
@@ -99,6 +100,11 @@
                         <div class="row mb-3">
                             <div class="col-12">
                                 <b>Título:</b> ${data.livro.titulo}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <b>Autor(es):</b> ${autores}
                             </div>
                         </div>
                         <div class="row mb-3">
