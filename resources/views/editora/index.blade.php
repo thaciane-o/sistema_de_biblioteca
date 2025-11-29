@@ -23,7 +23,6 @@
                 <table id="datatablesSimple" style="table-layout: fixed; width: 100%;">
                     <thead>
                     <tr>
-                        <th>ID</th>
                         <th>NOME</th>
                         <th>OPÇÕES</th>
                     </tr>
@@ -31,7 +30,6 @@
                     <tbody>
                     @foreach($editoras as $editora)
                         <tr>
-                            <td>{{ $editora->id }}</td>
                             <td>{{ $editora->nome }}</td>
                             <td>
                                 <a href="#" title="Visualizar" class="text-primary me-2"
@@ -87,11 +85,6 @@
                     const atualizado_em = formatarData(data.editora.updated_at);
 
                     modal.find('.modal-infos').html(`
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <b>ID:</b> ${data.editora.id}
-                            </div>
-                        </div>
                         <div class="row mb-3">
                             <div class="col-12">
                                 <b>Nome:</b> ${data.editora.nome}

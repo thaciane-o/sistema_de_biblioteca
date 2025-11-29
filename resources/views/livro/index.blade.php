@@ -23,18 +23,18 @@
                 <table id="datatablesSimple" style="table-layout: fixed; width: 100%;">
                     <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>TÍTULO</th>
                         <th>ISBN</th>
+                        <th>TÍTULO</th>
+                        <th>EDIÇÃO</th>
                         <th>OPÇÕES</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($livros as $livro)
                         <tr>
-                            <td>{{ $livro->id }}</td>
-                            <td>{{ $livro->titulo }}</td>
                             <td>{{ $livro->isbn }}</td>
+                            <td>{{ $livro->titulo }}</td>
+                            <td>{{ $livro->edicao }}</td>
                             <td>
                                 <a href="#" title="Visualizar" class="text-primary me-2"
                                    data-bs-toggle="modal" data-bs-target="#modal"
@@ -89,14 +89,13 @@
                     const criado_em = formatarData(data.livro.created_at);
                     const atualizado_em = formatarData(data.livro.updated_at);
 
-                    let autores = data.autores.map(a => a.nome).join(', ');
+                    const autores = data.autores.map(a => a.nome).join(', ');
+                    const editoras =
+                        data.editoras.length > 0
+                            ? data.editoras.map(e => e.nome).join(', ')
+                            : "<i>Sem editora</i>";
 
                     modal.find('.modal-infos').html(`
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <b>ID:</b> ${data.livro.id}
-                            </div>
-                        </div>
                         <div class="row mb-3">
                             <div class="col-12">
                                 <b>Título:</b> ${data.livro.titulo}
@@ -105,6 +104,11 @@
                         <div class="row mb-3">
                             <div class="col-12">
                                 <b>Autor(es):</b> ${autores}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <b>Editora(s):</b> ${editoras}
                             </div>
                         </div>
                         <div class="row mb-3">

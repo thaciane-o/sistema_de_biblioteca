@@ -23,7 +23,7 @@
                 <table id="datatablesSimple" style="table-layout: fixed; width: 100%;">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>CPF</th>
                         <th>NOME</th>
                         <th>TELEFONE</th>
                         <th>OPÇÕES</th>
@@ -32,7 +32,7 @@
                     <tbody>
                     @foreach($pessoas as $pessoa)
                         <tr>
-                            <td>{{ $pessoa->id }}</td>
+                            <td>{{ $pessoa->cpf }}</td>
                             <td>{{ $pessoa->nome }}</td>
                             <td>{{ $pessoa->telefone }}</td>
                             <td>
@@ -91,11 +91,6 @@
                     const atualizado_em = formatarData(data.pessoa.updated_at);
 
                     modal.find('.modal-infos').html(`
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <b>ID:</b> ${data.pessoa.id}
-                            </div>
-                        </div>
                         <div class="row mb-3">
                             <div class="col-12">
                                 <b>Nome:</b> ${data.pessoa.nome}

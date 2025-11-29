@@ -14,7 +14,7 @@ class LivroController extends Controller
      */
     public function index()
     {
-        $livros = DB::select('SELECT id, titulo, isbn FROM livro');
+        $livros = DB::select('SELECT id, titulo, isbn, edicao FROM livro');
 
         return view('livro.index', ['livros' => $livros]);
     }
@@ -106,9 +106,13 @@ class LivroController extends Controller
         $autores = DB::select('SELECT autor.nome FROM livro INNER JOIN escrito ON (livro.id = escrito.livro_id)
 		    INNER JOIN autor ON (autor.id = escrito.autor_id) WHERE livro.id = ?', [$id]);
 
+        $editoras = DB::select('SELECT editora.nome FROM livro INNER JOIN publicado ON (livro.id = publicado.livro_id)
+            INNER JOIN editora ON (editora.id = publicado.editora_id) WHERE livro.id = ?', [$id]);
+
         return response()->json([
             'livro' => $livro[0],
-            'autores' => $autores
+            'autores' => $autores,
+            'editoras' => $editoras
         ]);
     }
 

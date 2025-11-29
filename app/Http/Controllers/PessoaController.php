@@ -14,7 +14,7 @@ class PessoaController extends Controller
      */
     public function index()
     {
-        $pessoas = DB::select('SELECT id, nome, telefone FROM pessoa');
+        $pessoas = DB::select('SELECT id, nome, telefone, cpf FROM pessoa');
 
         return view('pessoa.index', ['pessoas' => $pessoas]);
     }
