@@ -10,7 +10,7 @@ use App\Http\Controllers\PessoaController;
 use App\Http\Controllers\AutorController;
 use App\Http\Controllers\EditoraController;
 use App\Http\Controllers\LivroController;
-
+use App\Http\Controllers\ClienteController;
 
 // Página inicial
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -69,3 +69,12 @@ Route::get('/livro/edit/{id}', [LivroController::class, 'edit'])->name('livro.ed
 Route::post('/livro/edit/{id}', [LivroController::class, 'update'])->name('livro.update');
 Route::get('/livro/destroy/{id}', [LivroController::class, 'destroy'])->name('livro.destroy');
 Route::get('/livro/show/{id}', [LivroController::class, 'show'])->name('livro.show');
+
+// Cliente
+Route::get('/cliente', [ClienteController::class, 'index'])->name('cliente.index');
+Route::get('/cliente/create', [ClienteController::class, 'create'])->name('cliente.create');
+Route::post('/cliente/create', [ClienteController::class, 'store'])->name('cliente.store');
+Route::get('/cliente/edit/{id}', [ClienteController::class, 'edit'])->name('cliente.edit');
+Route::post('/cliente/edit/{id}', [ClienteController::class, 'update'])->name('cliente.update');
+Route::get('/cliente/destroy/{id}', [ClienteController::class, 'destroy'])->name('cliente.destroy');
+Route::get('/cliente/show/{id}', [ClienteController::class, 'show'])->name('cliente.show');

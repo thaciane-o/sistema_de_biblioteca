@@ -11252,7 +11252,8 @@ body {
     padding-left: 12px;
 }
 
-.select2-container .select2-selection--multiple {
+.select2-container .select2-selection--multiple,
+.select2-container .select2-selection{
     min-height: 48px !important; /* aumente como quiser */
     padding-top: 10px !important;
     padding-bottom: 10px !important;
