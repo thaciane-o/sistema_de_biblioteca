@@ -10,7 +10,20 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+    {{-- Importação de JQuery --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    {{-- Importação de Ajax --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    {{-- Importação de JQuery Masks (Máscaras de input)  --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+    {{-- Importação de Select2 --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 <body class="sb-nav-fixed">
     @if (session('success'))
@@ -84,7 +97,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-address-card"></i></div>
                             Funcionário
                         </a>
-                        <a class="nav-link collapsed" href="#">
+                        <a class="nav-link collapsed" href="{{ route('livro.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
                             Livro
                         </a>
@@ -127,6 +140,7 @@
     <script src="js/datatables-simple-demo.js"></script>
 
     <script>
+        {{-- Funções de formatação de dados (Para visualização) --}}
         function formatarCPF(cpf) {
             if (!cpf) return "";
             return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
@@ -143,9 +157,16 @@
             const [datas, horario] = data.split(" ");
             const [ano, mes, dia] = datas.split("-");
 
-            return `${dia}/${mes}/${ano} ${horario}`;
+            if (horario) {
+                return `${dia}/${mes}/${ano} ${horario}`;
+            }
+            return `${dia}/${mes}/${ano}`;
         }
 
+        function formatarISBN(isbn) {
+            if (!isbn) return "";
+            return isbn.replace(/(\d{3})(\d{10})/, "$1-$2");
+        }
     </script>
 </body>
 </html>
