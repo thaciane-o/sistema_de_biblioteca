@@ -11,6 +11,7 @@ use App\Http\Controllers\AutorController;
 use App\Http\Controllers\EditoraController;
 use App\Http\Controllers\LivroController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\FuncionarioController;
 
 // Página inicial
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -78,3 +79,12 @@ Route::get('/cliente/edit/{id}', [ClienteController::class, 'edit'])->name('clie
 Route::post('/cliente/edit/{id}', [ClienteController::class, 'update'])->name('cliente.update');
 Route::get('/cliente/destroy/{id}', [ClienteController::class, 'destroy'])->name('cliente.destroy');
 Route::get('/cliente/show/{id}', [ClienteController::class, 'show'])->name('cliente.show');
+
+// Funcionário
+Route::get('/funcionario', [FuncionarioController::class, 'index'])->name('funcionario.index');
+Route::get('/funcionario/create', [FuncionarioController::class, 'create'])->name('funcionario.create');
+Route::post('/funcionario/create', [FuncionarioController::class, 'store'])->name('funcionario.store');
+Route::get('/funcionario/edit/{id}', [FuncionarioController::class, 'edit'])->name('funcionario.edit');
+Route::post('/funcionario/edit/{id}', [FuncionarioController::class, 'update'])->name('funcionario.update');
+Route::get('/funcionario/destroy/{id}', [FuncionarioController::class, 'destroy'])->name('funcionario.destroy');
+Route::get('/funcionario/show/{id}', [FuncionarioController::class, 'show'])->name('funcionario.show');

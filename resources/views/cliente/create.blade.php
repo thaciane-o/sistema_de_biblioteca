@@ -1,10 +1,10 @@
 <x-layoutBase>
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Editora</h1>
+        <h1 class="mt-4">Cliente</h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('home') }}">Página inicial</a></li>
-            <li class="breadcrumb-item active">Cadastros</li>
-            <li class="breadcrumb-item active">Cliente</li>
+            <li class="breadcrumb-item">Cadastros</li>
+            <li class="breadcrumb-item">Cliente</li>
             <li class="breadcrumb-item active">Criar</li>
         </ol>
         <div class="row justify-content-center">

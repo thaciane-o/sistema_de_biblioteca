@@ -13,7 +13,7 @@
                     @csrf
                     <div class="form-floating mb-3">
                         <input class="form-control required" id="inputMatricula" type="text"
-                               placeholder="Matrícula" name="matricula" required
+                               placeholder="Matrícula do cliente" name="matricula" required
                                value="{{ $cliente->matricula }}"
                         />
                         <label for="inputMatricula">

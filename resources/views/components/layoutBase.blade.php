@@ -93,7 +93,7 @@
                         <a class="nav-link collapsed" href="{{ route('cliente.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-laugh-wink"></i></div>
                             Cliente
-                        </a>  <a class="nav-link collapsed" href="#">
+                        </a>  <a class="nav-link collapsed" href="{{ route('funcionario.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-address-card"></i></div>
                             Funcionário
                         </a>

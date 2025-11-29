@@ -58,7 +58,7 @@ class ClienteController extends Controller
             return redirect()->route('cliente.index')->with('success', 'Cadastro realizado com sucesso!');
         } catch (Exception $e) {
             DB::rollBack();
-            return back()->withErrors(['Erro' => $e->getMessage()]);
+            return back()->with('error', 'Erro ao realizar cadastro!');
         }
     }
 
