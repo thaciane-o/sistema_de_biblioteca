@@ -14,7 +14,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = DB::select('SELECT cliente.id, matricula, nome, cpf FROM cliente INNER JOIN pessoa ON (pessoa.id = cliente.pessoa_id)');
+        $clientes = DB::select('SELECT * FROM cliente INNER JOIN pessoa ON (pessoa.id = cliente.pessoa_id)');
 
         return view('cliente.index', ['clientes' => $clientes]);
     }
@@ -67,12 +67,12 @@ class ClienteController extends Controller
      */
     public function show(string $id)
     {
-        $cliente = DB::select('SELECT
-            cliente.id, matricula, nome, cpf, endereco, telefone, cliente.created_at, cliente.updated_at
-            FROM cliente INNER JOIN pessoa ON (pessoa.id = cliente.pessoa_id) WHERE cliente.id = ?', [$id]);
+        $cliente = DB::select('SELECT * FROM cliente WHERE id = ?', [$id]);
+        $pessoa = DB::select('SELECT * FROM pessoa WHERE id = ?', [$cliente[0]->pessoa_id]);
 
         return response()->json([
-            'cliente' => $cliente[0]
+            'cliente' => $cliente[0],
+            'pessoa' => $pessoa[0]
         ]);
     }
 

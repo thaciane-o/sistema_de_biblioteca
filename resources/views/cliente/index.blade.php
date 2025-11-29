@@ -96,20 +96,20 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-12">
-                                <b>Nome:</b> ${data.cliente.nome}
+                                <b>Nome:</b> ${data.pessoa.nome}
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
-                                <b>CPF:</b> ${data.cliente.cpf}
+                                <b>CPF:</b> ${data.pessoa.cpf}
                             </div>
                             <div class="col-6">
-                                <b>Telefone:</b> ${data.cliente.telefone}
+                                <b>Telefone:</b> ${data.pessoa.telefone}
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-12">
-                                <b>Endereço:</b> ${data.cliente.endereco}
+                                <b>Endereço:</b> ${data.pessoa.endereco}
                             </div>
                         </div>
                         <hr>
