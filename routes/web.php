@@ -12,6 +12,7 @@ use App\Http\Controllers\EditoraController;
 use App\Http\Controllers\LivroController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\FuncionarioController;
+use App\Http\Controllers\EmprestimoController;
 
 // Página inicial
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -88,3 +89,12 @@ Route::get('/funcionario/edit/{id}', [FuncionarioController::class, 'edit'])->na
 Route::post('/funcionario/edit/{id}', [FuncionarioController::class, 'update'])->name('funcionario.update');
 Route::get('/funcionario/destroy/{id}', [FuncionarioController::class, 'destroy'])->name('funcionario.destroy');
 Route::get('/funcionario/show/{id}', [FuncionarioController::class, 'show'])->name('funcionario.show');
+
+// Empréstimo
+Route::get('/emprestimo', [EmprestimoController::class, 'index'])->name('emprestimo.index');
+Route::get('/emprestimo/create', [EmprestimoController::class, 'create'])->name('emprestimo.create');
+Route::post('/emprestimo/create', [EmprestimoController::class, 'store'])->name('emprestimo.store');
+Route::get('/emprestimo/edit/{id}', [EmprestimoController::class, 'edit'])->name('emprestimo.edit');
+Route::post('/emprestimo/edit/{id}', [EmprestimoController::class, 'update'])->name('emprestimo.update');
+Route::get('/emprestimo/destroy/{id}', [EmprestimoController::class, 'destroy'])->name('emprestimo.destroy');
+Route::get('/emprestimo/show/{id}', [EmprestimoController::class, 'show'])->name('emprestimo.show');

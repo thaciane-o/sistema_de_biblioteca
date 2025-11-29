@@ -84,7 +84,7 @@
                             <div class="col-md-6">
                                 <div class="form-floating">
                                     <input class="form-control" id="inputValorEmprestimo" type="number" step="0.01"
-                                           placeholder="12.34" name="valorEmprestimo" required/>
+                                           placeholder="12,34" name="valorEmprestimo" required/>
                                     <label for="inputValorEmprestimo">
                                         Valor de empréstimo <i class="fa fa-circle icon-required"></i>
                                     </label>

@@ -77,11 +77,11 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Principal</div>
-                        <a class="nav-link" href="/home">
+                        <a class="nav-link" href="{{ route('home') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-briefcase"></i></div>
                             Página inicial
                         </a>
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{ route('emprestimo.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-calendar-alt"></i></div>
                             Empréstimo
                         </a>
