@@ -88,7 +88,7 @@
                     const data_publicacao = formatarData(data.livro.dataPublicacao);
                     const criado_em = formatarData(data.livro.created_at);
                     const atualizado_em = formatarData(data.livro.updated_at);
-
+                    const valor = Number(data.livro.valorEmprestimo).toFixed(2).replace('.', ',');
                     const autores = data.autores.map(a => a.nome).join(', ');
                     const editoras =
                         data.editoras.length > 0
@@ -124,7 +124,7 @@
                                 <b>Data de publicação:</b> ${data_publicacao}
                             </div>
                             <div class="col-6">
-                                <b>Valor empréstimo:</b> R$ ${Number(data.livro.valorEmprestimo).toFixed(2)}
+                                <b>Valor empréstimo:</b> R$ ${valor}
                             </div>
                         </div>
                         <div class="row mb-3">

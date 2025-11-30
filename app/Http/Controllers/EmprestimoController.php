@@ -14,8 +14,11 @@ class EmprestimoController extends Controller
      */
     public function index()
     {
-        $emprestimos = DB::select('SELECT * FROM emprestimo INNER JOIN cliente ON (cliente.id = emprestimo.cliente_id)
-                                        INNER JOIN livro ON (livro.id = emprestimo.livro_id)');
+        $emprestimos = DB::select('SELECT emprestimo.id, emprestimo.dataInicio, emprestimo.dataFimEsperado,
+                                            emprestimo.renovacoes, livro.titulo, pessoa.nome FROM emprestimo
+                                            INNER JOIN cliente ON (cliente.id = emprestimo.cliente_id)
+                                            INNER JOIN pessoa ON (pessoa.id = cliente.pessoa_id)
+                                            INNER JOIN livro ON (livro.id = emprestimo.livro_id)');
 
         return view('emprestimo.index', ['emprestimos' => $emprestimos]);
     }
@@ -73,7 +76,8 @@ class EmprestimoController extends Controller
     {
         $emprestimo = DB::select('SELECT * FROM emprestimo WHERE id = ?', [$id]);
         $livro = DB::select('SELECT * FROM livro WHERE id = ?', [$emprestimo[0]->livro_id]);
-        $cliente = DB::select('SELECT * FROM cliente WHERE id = ?', [$emprestimo[0]->cliente_id]);
+        $cliente = DB::select('SELECT * FROM cliente INNER JOIN pessoa ON (pessoa.id = cliente.pessoa_id)
+                                        WHERE cliente.id = ?', [$emprestimo[0]->cliente_id]);
 
         return response()->json([
             'emprestimo' => $emprestimo[0],
@@ -87,10 +91,11 @@ class EmprestimoController extends Controller
      */
     public function edit(string $id)
     {
-        $funcionario = DB::select('SELECT * FROM funcionario WHERE id = ?', [$id]);
-        $pessoas = DB::select('SELECT id, nome FROM pessoa');
+        $emprestimo = DB::select('SELECT * FROM emprestimo WHERE id = ?', [$id]);
+        $livros = DB::select('SELECT id, titulo FROM livro');
+        $clientes = DB::select('SELECT cliente.id, nome FROM cliente INNER JOIN pessoa ON (pessoa.id = cliente.pessoa_id)');
 
-        return view('funcionario.edit', ['funcionario' => $funcionario[0], 'pessoas' => $pessoas]);
+        return view('emprestimo.edit', ['emprestimo' => $emprestimo[0], 'livros' => $livros, 'clientes' => $clientes]);
     }
 
     /**
@@ -99,32 +104,39 @@ class EmprestimoController extends Controller
     public function update(Request $request, string $id)
     {
         $validator = Validator::make($request->all(), [
-            'matricula' => 'required|string|max:10',
-            'dataAdmissao' => 'required|date',
-            'dataDemissao' => 'nullable|date',
-            'pessoa_id' => 'required|integer',
+            'valorPraticado' => 'required|numeric',
+            'dataInicio' => 'required|date',
+            'dataFimEsperado' => 'required|date',
+            'dataFimReal' => 'nullable|date',
+            'renovacoes' => 'required|integer',
+            'cliente_id' => 'required|integer',
+            'livro_id' => 'required|integer',
         ]);
 
         try {
             if ($validator->fails()) {
-                return redirect()->route('funcionario.index')->with('error', 'Confira os campos e tente novamente!');
+                return redirect()->route('emprestimo.index')->with('error', 'Confira os campos e tente novamente!');
             }
 
             DB::beginTransaction();
 
-            DB::update('UPDATE funcionario SET matricula = ?, dataAdmissao = ?, dataDemissao = ?, pessoa_id = ?, updated_at = NOW() WHERE id = ?',
+            DB::update('UPDATE emprestimo SET valorPraticado = ?, dataInicio = ?, dataFimEsperado = ?,
+                      dataFimReal = ?, renovacoes = ?, cliente_id = ?, livro_id = ?, updated_at = NOW() WHERE id = ?',
                 [
-                    $request->input('matricula'),
-                    $request->input('dataAdmissao'),
-                    $request->input('dataDemissao'),
-                    $request->input('pessoa_id'),
+                    $request->input('valorPraticado'),
+                    $request->input('dataInicio'),
+                    $request->input('dataFimEsperado'),
+                    $request->input('dataFimReal'),
+                    $request->input('renovacoes'),
+                    $request->input('cliente_id'),
+                    $request->input('livro_id'),
                     $id
                 ]
             );
 
             DB::commit();
 
-            return redirect()->route('funcionario.index')->with('success', 'Cadastro atualizado com sucesso!');
+            return redirect()->route('emprestimo.index')->with('success', 'Cadastro atualizado com sucesso!');
         } catch (Exception $e) {
             DB::rollBack();
             return back()->with(['error' => 'Erro ao atualizar cadastro!']);
@@ -139,11 +151,11 @@ class EmprestimoController extends Controller
         try {
             DB::beginTransaction();
 
-            DB::delete('DELETE FROM funcionario WHERE id = ?', [$id]);
+            DB::delete('DELETE FROM emprestimo WHERE id = ?', [$id]);
 
             DB::commit();
 
-            return redirect()->route('funcionario.index')->with('success', 'Cadastro deletado com sucesso!');
+            return redirect()->route('emprestimo.index')->with('success', 'Cadastro deletado com sucesso!');
         } catch (Exception $e) {
             DB::rollBack();
             return back()->with(['error' => 'Erro ao deletar cadastro!']);

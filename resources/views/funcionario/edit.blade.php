@@ -20,29 +20,27 @@
                             Matrícula <i class="fa fa-circle icon-required"></i>
                         </label>
                     </div>
-                    <div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3 mb-md-0">
-                                    <input class="form-control" id="inputDataAdmissao" type="date"
-                                           placeholder="DD/MM/AAAA" name="dataAdmissao" required
-                                           value="{{ $funcionario->dataAdmissao }}"
-                                    />
-                                    <label for="inputDataAdmissao">
-                                        Data de admissão <i class="fa fa-circle icon-required"></i>
-                                    </label>
-                                </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3 mb-md-0">
+                                <input class="form-control" id="inputDataAdmissao" type="date"
+                                       placeholder="DD/MM/AAAA" name="dataAdmissao" required
+                                       value="{{ $funcionario->dataAdmissao }}"
+                                />
+                                <label for="inputDataAdmissao">
+                                    Data de admissão <i class="fa fa-circle icon-required"></i>
+                                </label>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3 mb-md-0">
-                                    <input class="form-control" id="inputDataDemissao" type="date"
-                                           placeholder="DD/MM/AAAA" name="dataDemissao"
-                                           value="{{ $funcionario->dataDemissao }}"
-                                    />
-                                    <label for="inputDataDemissao">
-                                        Data de demissão
-                                    </label>
-                                </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3 mb-md-0">
+                                <input class="form-control" id="inputDataDemissao" type="date"
+                                       placeholder="DD/MM/AAAA" name="dataDemissao"
+                                       value="{{ $funcionario->dataDemissao }}"
+                                />
+                                <label for="inputDataDemissao">
+                                    Data de demissão
+                                </label>
                             </div>
                         </div>
                     </div>

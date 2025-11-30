@@ -46,9 +46,9 @@
                                    style="text-decoration: none">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="{{ route('funcionario.edit', $emprestimo->id)  }}" title="Atualizar"
+                                <a href="{{ route('emprestimo.edit', $emprestimo->id)  }}" title="Atualizar"
                                    class="text-success me-2"><i class="fas fa-edit"></i></a>
-                                <a href="{{ route('funcionario.destroy', $emprestimo->id) }}"
+                                <a href="{{ route('emprestimo.destroy', $emprestimo->id) }}"
                                    class="text-danger" onclick="return confirm('Tem certeza que deseja excluir este empréstimo?')">
                                     <i class="fas fa-trash"></i>
                                 </a>
@@ -90,41 +90,48 @@
 
                     const criado_em = formatarData(data.emprestimo.created_at);
                     const atualizado_em = formatarData(data.emprestimo.updated_at);
+                    const dataEmprestimo = formatarData(data.emprestimo.dataInicio);
+                    const dataDevolucao = formatarData(data.emprestimo.dataFimEsperado);
+                    const valor = Number(data.emprestimo.valorPraticado).toFixed(2).replace('.', ',');
+                    let dataDevolvido = null;
+
+                    if (data.emprestimo.dataFimReal) {
+                        dataDevolvido = formatarData(data.emprestimo.dataFimReal);
+                    } else {
+                        dataDevolvido = "Livro não devolvido"
+                    }
 
                     modal.find('.modal-infos').html(`
                         <div class="row mb-3">
                             <div class="col-12">
-                                <b>Livro:</b> ${data.livro.nome}
+                                <b>Valor:</b> R$ ${valor}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <b>Data do empréstimo:</b> ${dataEmprestimo}
+                            </div>
+                            <div class="col-6">
+                                <b>Data da devolução:</b> ${dataDevolucao}
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-12">
-                                <b>Cliente:</b> ${data.cliente.nome}
+                                <b>Data devolvida:</b> ${dataDevolvido}
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <b>Data do empréstimo:</b> ${data.emprestimo.dataInicio}
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <b>Data da devolução:</b> ${data.emprestimo.dataFimEsperado}
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <b>Data devolvida:</b> ${data.emprestimo.dataFimReal}
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <b>Valor:</b> ${data.emprestimo.valorPraticado}
-                            </div>
-                        </div>
+
                         <div class="row mb-3">
                             <div class="col-12">
                                 <b>Renovações:</b> ${data.emprestimo.renovacoes}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <b>Livro:</b> ${data.livro.titulo}
+                            </div>
+                            <div class="col-6">
+                                <b>Cliente:</b> ${data.cliente.nome}
                             </div>
                         </div>
                         <hr>

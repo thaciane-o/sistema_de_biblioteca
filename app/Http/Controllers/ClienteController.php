@@ -14,7 +14,8 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = DB::select('SELECT * FROM cliente INNER JOIN pessoa ON (pessoa.id = cliente.pessoa_id)');
+        $clientes = DB::select('SELECT cliente.id, cliente.matricula, pessoa.nome, pessoa.cpf
+                                        FROM cliente INNER JOIN pessoa ON (pessoa.id = cliente.pessoa_id)');
 
         return view('cliente.index', ['clientes' => $clientes]);
     }
