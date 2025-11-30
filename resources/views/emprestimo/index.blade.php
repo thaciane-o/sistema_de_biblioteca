@@ -38,8 +38,8 @@
                             <td>{{ $emprestimo->titulo }}</td>
                             <td>{{ $emprestimo->funcionario_nome }}</td>
                             <td>{{ $emprestimo->cliente_nome }}</td>
-                            <td>{{ $emprestimo->dataInicio }}</td>
-                            <td>{{ $emprestimo->dataFimEsperado }}</td>
+                            <td>{{ date('d/m/Y', strtotime($emprestimo->dataInicio)) }}</td>
+                            <td>{{ date('d/m/Y', strtotime($emprestimo->dataFimEsperado)) }}</td>
                             <td>{{ $emprestimo->renovacoes }}</td>
                             <td>
                                 <a href="#" title="Visualizar" class="text-primary me-2"

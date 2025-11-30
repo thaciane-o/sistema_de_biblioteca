@@ -34,7 +34,7 @@
                         <tr>
                             <td>{{ $cliente->matricula }}</td>
                             <td>{{ $cliente->nome }}</td>
-                            <td>{{ $cliente->cpf }}</td>
+                            <td>{{ preg_replace('/(\d{3})(\d{3})(\d{3})(\d{2})/', '$1.$2.$3-$4', $cliente->cpf) }}</td>
                             <td>
                                 <a href="#" title="Visualizar" class="text-primary me-2"
                                    data-bs-toggle="modal" data-bs-target="#modal"
@@ -87,6 +87,8 @@
 
                     const criado_em = formatarData(data.cliente.created_at);
                     const atualizado_em = formatarData(data.cliente.updated_at);
+                    const cpf = formatarCPF(data.pessoa.cpf);
+                    const telefone = formatarTelefone(data.pessoa.telefone);
 
                     modal.find('.modal-infos').html(`
                         <div class="row mb-3">
@@ -101,10 +103,10 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
-                                <b>CPF:</b> ${data.pessoa.cpf}
+                                <b>CPF:</b> ${cpf}
                             </div>
                             <div class="col-6">
-                                <b>Telefone:</b> ${data.pessoa.telefone}
+                                <b>Telefone:</b> ${telefone}
                             </div>
                         </div>
                         <div class="row mb-3">

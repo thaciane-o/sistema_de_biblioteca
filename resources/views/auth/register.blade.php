@@ -3,86 +3,80 @@
         Register
     </x-slot:title>
 
-    <div class="hero min-h-[calc(100vh-16rem)]">
-        <div class="hero-content flex-col">
-            <div class="card w-96 bg-base-100">
-                <div class="card-body">
-                    <h1 class="mt-1 text-xl font-bold text-center mb-6">Criar conta</h1>
+    <div class="d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 16rem);">
+        <div class="card shadow-sm" style="width: 28rem;">
+            <div class="card-body">
 
-                    <form method="POST" action="/register">
-                        @csrf
+                <h4 class="text-center mb-4 fw-bold">Criar conta</h4>
 
-                        <!-- Name -->
-                        <label class="floating-label mb-6">
-                            <input type="text"
-                                   name="name"
-                                   placeholder="John Doe"
-                                   value="{{ old('name') }}"
-                                   class="input input-bordered @error('name') input-error @enderror"
-                                   required>
-                            <span>Nome</span>
-                        </label>
+                <form method="POST" action="/register">
+                    @csrf
+                    <div class="form-floating mb-3">
+                        <input type="text"
+                               name="name"
+                               value="{{ old('name') }}"
+                               class="form-control @error('name') is-invalid @enderror"
+                               placeholder="John Doe"
+                               required>
+                        <label for="name">Nome</label>
+
                         @error('name')
-                            <div class="label -mt-4 mb-2">
-                                <span class="label-text-alt text-error">{{ $message }}</span>
-                            </div>
-                        @enderror
-
-                        <!-- Email -->
-                        <label class="floating-label mb-6">
-                            <input type="email"
-                                   name="email"
-                                   placeholder="email@exemplo.com"
-                                   value="{{ old('email') }}"
-                                   class="input input-bordered @error('email') input-error @enderror"
-                                   required>
-                            <span>Email</span>
-                        </label>
-                        @error('email')
-                            <div class="label -mt-4 mb-2">
-                                <span class="label-text-alt text-error">{{ $message }}</span>
-                            </div>
-                        @enderror
-
-                        <!-- Password -->
-                        <label class="floating-label mb-6">
-                            <input type="password"
-                                   name="password"
-                                   placeholder="••••••••"
-                                   class="input input-bordered @error('password') input-error @enderror"
-                                   required>
-                            <span>Senha</span>
-                        </label>
-                        @error('password')
-                            <div class="label -mt-4 mb-2">
-                                <span class="label-text-alt text-error">{{ $message }}</span>
-                            </div>
-                        @enderror
-
-                        <!-- Password Confirmation -->
-                        <label class="floating-label mb-6">
-                            <input type="password"
-                                   name="password_confirmation"
-                                   placeholder="••••••••"
-                                   class="input input-bordered"
-                                   required>
-                            <span>Confirmar senha</span>
-                        </label>
-
-                        <!-- Submit Button -->
-                        <div class="form-control mt-8">
-                            <button type="submit" class="btn btn-primary btn-sm w-full">
-                                Registrar
-                            </button>
+                        <div class="invalid-feedback">
+                            {{ $message }}
                         </div>
-                    </form>
+                        @enderror
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="email"
+                               name="email"
+                               value="{{ old('email') }}"
+                               class="form-control @error('email') is-invalid @enderror"
+                               placeholder="email@exemplo.com"
+                               required>
+                        <label for="email">Email</label>
 
-                    <div class="divider">OU</div>
-                    <p class="text-center text-sm">
-                        Já tem uma conta?
-                        <a href="/" class="link link-primary">Entrar</a>
-                    </p>
+                        @error('email')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password"
+                               name="password"
+                               class="form-control @error('password') is-invalid @enderror"
+                               placeholder="••••••••"
+                               required>
+                        <label for="password">Senha</label>
+
+                        @error('password')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password"
+                               name="password_confirmation"
+                               class="form-control"
+                               placeholder="••••••••"
+                               required>
+                        <label for="password_confirmation">Confirmar senha</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-2">
+                        Registrar
+                    </button>
+                </form>
+
+                <div class="text-center my-3">
+                    <span class="text-muted">OU</span>
                 </div>
+
+                <p class="text-center">
+                    Já tem uma conta?
+                    <a href="/" class="text-decoration-none link-primary">Entrar</a>
+                </p>
+
             </div>
         </div>
     </div>

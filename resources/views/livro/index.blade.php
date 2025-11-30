@@ -32,7 +32,7 @@
                     <tbody>
                     @foreach($livros as $livro)
                         <tr>
-                            <td>{{ $livro->isbn }}</td>
+                            <td>{{ preg_replace('/(\d{3})(\d{9})/', '$1-$2', $livro->isbn) }}</td>
                             <td>{{ $livro->titulo }}</td>
                             <td>{{ $livro->edicao }}</td>
                             <td>

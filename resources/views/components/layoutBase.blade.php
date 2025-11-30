@@ -24,6 +24,9 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
 </head>
 <body class="sb-nav-fixed">
     @if (session('success'))
@@ -140,6 +143,18 @@
     <script src="js/datatables-simple-demo.js"></script>
 
     <script>
+        // Temporizador do toast
+        document.addEventListener('DOMContentLoaded', function () {
+            const toastElList = [].slice.call(document.querySelectorAll('.toast'))
+            toastElList.map(function (toastEl) {
+                const toast = new bootstrap.Toast(toastEl, {
+                    delay: 3000,
+                    autohide: true
+                });
+                toast.show();
+            });
+        });
+
         {{-- Funções de formatação de dados (Para visualização) --}}
         function formatarCPF(cpf) {
             if (!cpf) return "";
@@ -165,7 +180,7 @@
 
         function formatarISBN(isbn) {
             if (!isbn) return "";
-            return isbn.replace(/(\d{3})(\d{10})/, "$1-$2");
+            return isbn.replace(/(\d{3})(\d{9})/, "$1-$2");
         }
     </script>
 </body>

@@ -3,71 +3,66 @@
         Sign In
     </x-slot:title>
 
-    <div class="hero min-h-[calc(100vh-16rem)]">
-        <div class="hero-content flex-col">
-            <div class="card w-96 bg-base-100">
-                <div class="card-body">
-                    <h1 class="mt-1 text-xl font-bold text-center mb-6">Bem-vindo(a)</h1>
+    <div class="d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 16rem);">
+        <div class="card shadow-sm" style="width: 28rem;">
+            <div class="card-body">
 
-                    <form method="POST" action="/login">
-                        @csrf
+                <h4 class="text-center mb-4 fw-bold">Bem-vindo(a)</h4>
 
-                        <!-- Email -->
-                        <label class="floating-label mb-6">
-                            <input type="email"
-                                   name="email"
-                                   placeholder="email@exemplo.com"
-                                   value="{{ old('email') }}"
-                                   class="input input-bordered @error('email') input-error @enderror"
-                                   required
-                                   autofocus>
-                            <span>Email</span>
-                        </label>
+                <form method="POST" action="/login">
+                    @csrf
+                    <div class="form-floating mb-3">
+                        <input type="email"
+                               name="email"
+                               class="form-control @error('email') is-invalid @enderror"
+                               placeholder="email@exemplo.com"
+                               value="{{ old('email') }}"
+                               required
+                               autofocus>
+                        <label for="email">Email</label>
+
                         @error('email')
-                            <div class="label -mt-4 mb-2">
-                                <span class="label-text-alt text-error">{{ $message }}</span>
-                            </div>
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                         @enderror
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password"
+                               name="password"
+                               class="form-control @error('password') is-invalid @enderror"
+                               placeholder="••••••••"
+                               required>
+                        <label for="password">Senha</label>
 
-                        <!-- Password -->
-                        <label class="floating-label mb-6">
-                            <input type="password"
-                                   name="password"
-                                   placeholder="••••••••"
-                                   class="input input-bordered @error('password') input-error @enderror"
-                                   required>
-                            <span>Senha</span>
-                        </label>
                         @error('password')
-                            <div class="label -mt-4 mb-2">
-                                <span class="label-text-alt text-error">{{ $message }}</span>
-                            </div>
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                         @enderror
+                    </div>
 
-                        <!-- Remember Me -->
-                        <div class="form-control mt-4">
-                            <label class="label cursor-pointer justify-start">
-                                <input type="checkbox"
-                                       name="remember"
-                                       class="checkbox">
-                                <span class="label-text ml-2">Lembrar de mim</span>
-                            </label>
-                        </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                        <label class="form-check-label" for="remember">
+                            Lembrar de mim
+                        </label>
+                    </div>
 
-                        <!-- Submit Button -->
-                        <div class="form-control mt-8">
-                            <button type="submit" class="btn btn-primary btn-sm w-full">
-                                Entrar
-                            </button>
-                        </div>
-                    </form>
+                    <button type="submit" class="btn btn-primary w-100">
+                        Entrar
+                    </button>
+                </form>
 
-                    <div class="divider">OU</div>
-                    <p class="text-center text-sm">
-                        Não tem uma conta?
-                        <a href="/register" class="link link-primary">Registrar</a>
-                    </p>
+                <div class="text-center my-3">
+                    <span class="text-muted">OU</span>
                 </div>
+
+                <p class="text-center">
+                    Não tem uma conta?
+                    <a href="/register" class="link-primary text-decoration-none">Registrar</a>
+                </p>
+
             </div>
         </div>
     </div>

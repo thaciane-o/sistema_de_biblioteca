@@ -23,7 +23,7 @@ class Login extends Controller
             $request->session()->regenerate();
 
             // Redirect to intended page or home
-            return redirect()->intended('/home')->with('success', 'Bem-vindo(a) de volta!');
+            return redirect()->intended('/home')->with('success', 'Bem-vindo(a)!');
         }
 
         // If login fails, redirect back with error

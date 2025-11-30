@@ -32,9 +32,9 @@
                     <tbody>
                     @foreach($pessoas as $pessoa)
                         <tr>
-                            <td>{{ $pessoa->cpf }}</td>
+                            <td>{{ preg_replace('/(\d{3})(\d{3})(\d{3})(\d{2})/', '$1.$2.$3-$4', $pessoa->cpf) }}</td>
                             <td>{{ $pessoa->nome }}</td>
-                            <td>{{ $pessoa->telefone }}</td>
+                            <td>{{ preg_replace('/(\d{2})(\d{4,5})(\d{4})/', '($1) $2-$3', $pessoa->telefone) }}</td>
                             <td>
                                 <a href="#" title="Visualizar" class="text-primary me-2"
                                    data-bs-toggle="modal" data-bs-target="#modal"
