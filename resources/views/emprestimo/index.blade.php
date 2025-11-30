@@ -24,6 +24,7 @@
                     <thead>
                     <tr>
                         <th>LIVRO</th>
+                        <th>RESPONSÁVEL</th>
                         <th>CLIENTE</th>
                         <th>DATA DO EMPRÉSTIMO</th>
                         <th>DATA DA DEVOLUÇÃO</th>
@@ -35,7 +36,8 @@
                     @foreach($emprestimos as $emprestimo)
                         <tr>
                             <td>{{ $emprestimo->titulo }}</td>
-                            <td>{{ $emprestimo->nome }}</td>
+                            <td>{{ $emprestimo->funcionario_nome }}</td>
+                            <td>{{ $emprestimo->cliente_nome }}</td>
                             <td>{{ $emprestimo->dataInicio }}</td>
                             <td>{{ $emprestimo->dataFimEsperado }}</td>
                             <td>{{ $emprestimo->renovacoes }}</td>
@@ -88,6 +90,7 @@
                 method: 'GET',
                 success: function (data) {
 
+                    console.log(data.emprestimo);
                     const criado_em = formatarData(data.emprestimo.created_at);
                     const atualizado_em = formatarData(data.emprestimo.updated_at);
                     const dataEmprestimo = formatarData(data.emprestimo.dataInicio);
@@ -128,10 +131,15 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
-                                <b>Livro:</b> ${data.livro.titulo}
+                                <b>Livro:</b> ${data.emprestimo.titulo}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <b>Responsável(is):</b> ${data.emprestimo.funcionario_nome}
                             </div>
                             <div class="col-6">
-                                <b>Cliente:</b> ${data.cliente.nome}
+                                <b>Cliente:</b> ${data.emprestimo.cliente_nome}
                             </div>
                         </div>
                         <hr>

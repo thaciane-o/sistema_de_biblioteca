@@ -62,16 +62,33 @@
                             Renovações
                         </label>
                     </div>
+                    <div class="col-md-12 mb-3">
+                        <div class="select2-floating mb-3 mb-md-0">
+                            <span class="select2-label">
+                                Livro <i class="fa fa-circle icon-required"></i>
+                            </span>
+                            <select class="form-select select2" id="inputLivro" name="livro_id">
+                                <option>Selecione um livro...</option>
+                                @foreach($livros as $livro)
+                                    <option value="{{ $livro->id }}" selected>{{ $livro->titulo }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <div class="select2-floating mb-3 mb-md-0">
                             <span class="select2-label">
-                                Livro <i class="fa fa-circle icon-required"></i>
+                                Responsável <i class="fa fa-circle icon-required"></i>
                             </span>
-                                <select class="form-select select2" id="inputLivro" name="livro_id">
-                                    <option>Selecione um livro...</option>
-                                    @foreach($livros as $livro)
-                                        <option value="{{ $livro->id }}" selected>{{ $livro->titulo }}</option>
+                                <select class="form-select select2" id="inputFuncionario" name="responsaveis_id[]" multiple
+                                        data-placeholder="Selecione o(s) responsável(is)">
+                                    @foreach($funcionarios as $funcionario)
+                                        <option
+                                            value="{{ $funcionario->id }}"
+                                            {{ in_array($funcionario->id, $responsaveisEmprestimo ?? []) ? 'selected' : '' }}
+                                        >
+                                        {{ $funcionario->nome }}</option>
                                     @endforeach
                                 </select>
                             </div>
