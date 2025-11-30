@@ -101,18 +101,23 @@ class LivroController extends Controller
      */
     public function show(string $id)
     {
-        $livro = DB::select('SELECT * FROM livro WHERE id = ?', [$id]);
-
-        $autores = DB::select('SELECT autor.nome FROM livro INNER JOIN escrito ON (livro.id = escrito.livro_id)
-		    INNER JOIN autor ON (autor.id = escrito.autor_id) WHERE livro.id = ?', [$id]);
-
-        $editoras = DB::select('SELECT editora.nome FROM livro INNER JOIN publicado ON (livro.id = publicado.livro_id)
-            INNER JOIN editora ON (editora.id = publicado.editora_id) WHERE livro.id = ?', [$id]);
+        $livro = DB::select('SELECT
+                livro.*,
+                GROUP_CONCAT(DISTINCT autor.nome SEPARATOR ", ") AS autores,
+                GROUP_CONCAT(DISTINCT editora.nome SEPARATOR ", ") AS editoras
+            FROM
+                livro
+                INNER JOIN escrito ON escrito.livro_id = livro.id
+                INNER JOIN autor ON autor.id = escrito.autor_id
+                LEFT JOIN publicado ON publicado.livro_id = livro.id
+                LEFT JOIN editora ON editora.id = publicado.editora_id
+            WHERE
+                livro.id = ?
+            GROUP
+                BY livro.id', [$id]);
 
         return response()->json([
-            'livro' => $livro[0],
-            'autores' => $autores,
-            'editoras' => $editoras
+            'livro' => $livro[0]
         ]);
     }
 

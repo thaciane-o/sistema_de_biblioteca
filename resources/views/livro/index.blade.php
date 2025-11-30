@@ -89,11 +89,7 @@
                     const criado_em = formatarData(data.livro.created_at);
                     const atualizado_em = formatarData(data.livro.updated_at);
                     const valor = Number(data.livro.valorEmprestimo).toFixed(2).replace('.', ',');
-                    const autores = data.autores.map(a => a.nome).join(', ');
-                    const editoras =
-                        data.editoras.length > 0
-                            ? data.editoras.map(e => e.nome).join(', ')
-                            : "<i>Sem editora</i>";
+                    const editoras = data.livro.editoras != null ? data.livro.editoras : "<i>Sem editora</i>";
 
                     modal.find('.modal-infos').html(`
                         <div class="row mb-3">
@@ -103,7 +99,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-12">
-                                <b>Autor(es):</b> ${autores}
+                                <b>Autor(es):</b> ${data.livro.autores}
                             </div>
                         </div>
                         <div class="row mb-3">
