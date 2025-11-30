@@ -253,4 +253,45 @@ class EmprestimoController extends Controller
             return back()->with(['error' => 'Erro ao deletar cadastro!']);
         }
     }
+
+    public function dadosRenovacao() {
+        $funcionarios = DB::select('SELECT funcionario.id, nome FROM funcionario INNER JOIN pessoa ON (pessoa.id = funcionario.pessoa_id)');
+
+        return response()->json([
+            'funcionarios' => $funcionarios
+        ]);
+    }
+
+    public function renovar(Request $request, string $id) {
+        $validator = Validator::make($request->all(), [
+            'responsavel_id' => 'required|integer',
+        ]);
+
+        try {
+            if ($validator->fails()) {
+                return redirect()->route('emprestimo.index')->with('error', 'Confira os campos e tente novamente!');
+            }
+
+            DB::beginTransaction();
+
+            $existeResponsavel = DB::select('SELECT responsavel_id FROM responsavel_emprestimo WHERE emprestimo_id = ?', [$id]);
+
+            if (!$existeResponsavel) {
+                DB::insert('INSERT INTO responsavel_emprestimo (responsavel_id, emprestimo_id, created_at, updated_at) VALUES (?, ?, NOW(), NOW()');
+            }
+
+            DB::update('UPDATE emprestimo SET dataFimReal = DATE_ADD(NOW(), INTERVAL 7 DAY), renovacoes = renovacoes + 1, updated_at = NOW() WHERE id = ?',
+                [
+                    $id
+                ]
+            );
+
+            DB::commit();
+
+            return redirect()->route('emprestimo.index')->with('success', 'Livro renovado com sucesso!');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return back()->with('error', "Erro ao realizar renovação!");
+        }
+    }
 }
