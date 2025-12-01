@@ -3,7 +3,7 @@
         Sign In
     </x-slot:title>
 
-    <div class="d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 16rem);">
+    <div class="d-flex justify-content-center align-items-center min-vh-100">
         <div class="card shadow-sm" style="width: 28rem;">
             <div class="card-body">
 

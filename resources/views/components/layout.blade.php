@@ -63,7 +63,7 @@
     @endif
 
 
-<main class="flex-1 container mx-auto px-4 py-8 flex justify-center items-center">
+<main class="container">
     {{ $slot }}
 </main>
 
