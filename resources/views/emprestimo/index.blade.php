@@ -92,8 +92,9 @@
                     </div>
                     <div class="modal-body">
                         <div class="row d-flex justify-content-center">
-                            <form method="post" id="formRenovar" action="{{ route('emprestimo.renovar', $emprestimo->id) }}">
-                            @csrf
+                            <form method="post" id="formRenovar" action="{{ route('emprestimo.renovar') }}">
+                                @csrf
+                                <input type="hidden" id="renovarEmprestimoId" name="emprestimo_id">
                                 <div class="modal-infos col-12"></div>
                             </form>
                         </div>
@@ -194,6 +195,9 @@
                 url: "{{ route('emprestimo.dadosRenovacao', ['id' => '__ID__']) }}".replace('__ID__', id),
                 method: 'GET',
                 success: function (data) {
+
+                    $('#renovarEmprestimoId').val(id);
+
                     let opcoes = '<option selected>Selecione um responsável...</option>';
 
                     data.funcionarios.forEach(function(funcionario) {

@@ -262,12 +262,15 @@ class EmprestimoController extends Controller
         ]);
     }
 
-    public function renovar(Request $request, string $id) {
+    public function renovar(Request $request) {
         $validator = Validator::make($request->all(), [
+            'emprestimo_id' => 'required|integer',
             'responsavel_id' => 'required|integer',
         ]);
 
         try {
+            $id = $request->input('emprestimo_id');
+
             if ($validator->fails()) {
                 return redirect()->route('emprestimo.index')->with('error', 'Confira os campos e tente novamente!');
             }
@@ -277,10 +280,14 @@ class EmprestimoController extends Controller
             $existeResponsavel = DB::select('SELECT responsavel_id FROM responsavel_emprestimo WHERE emprestimo_id = ?', [$id]);
 
             if (!$existeResponsavel) {
-                DB::insert('INSERT INTO responsavel_emprestimo (responsavel_id, emprestimo_id, created_at, updated_at) VALUES (?, ?, NOW(), NOW()');
+                DB::insert('INSERT INTO responsavel_emprestimo (responsavel_id, emprestimo_id, created_at, updated_at) VALUES (?, ?, NOW(), NOW()',
+                [
+                    $request->input('responsavel_id'),
+                    $id
+                ]);
             }
 
-            DB::update('UPDATE emprestimo SET dataFimReal = DATE_ADD(NOW(), INTERVAL 7 DAY), renovacoes = renovacoes + 1, updated_at = NOW() WHERE id = ?',
+            DB::update('UPDATE emprestimo SET dataFimEsperado = DATE_ADD(dataFimEsperado, INTERVAL 7 DAY), renovacoes = renovacoes + 1, updated_at = NOW() WHERE id = ?',
                 [
                     $id
                 ]

@@ -99,4 +99,4 @@ Route::post('/emprestimo/edit/{id}', [EmprestimoController::class, 'update'])->n
 Route::get('/emprestimo/destroy/{id}', [EmprestimoController::class, 'destroy'])->name('emprestimo.destroy');
 Route::get('/emprestimo/show/{id}', [EmprestimoController::class, 'show'])->name('emprestimo.show');
 Route::get('/emprestimo/dadosRenovacao', [EmprestimoController::class, 'dadosRenovacao'])->name('emprestimo.dadosRenovacao');
-Route::post('/emprestimo/renovar/{id}', [EmprestimoController::class, 'renovar'])->name('emprestimo.renovar');
+Route::post('/emprestimo/renovar', [EmprestimoController::class, 'renovar'])->name('emprestimo.renovar');
