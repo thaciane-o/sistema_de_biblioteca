@@ -100,3 +100,5 @@ Route::get('/emprestimo/destroy/{id}', [EmprestimoController::class, 'destroy'])
 Route::get('/emprestimo/show/{id}', [EmprestimoController::class, 'show'])->name('emprestimo.show');
 Route::get('/emprestimo/dadosRenovacao', [EmprestimoController::class, 'dadosRenovacao'])->name('emprestimo.dadosRenovacao');
 Route::post('/emprestimo/renovar', [EmprestimoController::class, 'renovar'])->name('emprestimo.renovar');
+Route::get('/emprestimo/status', [EmprestimoController::class, 'status'])->name('emprestimo.status');
+Route::post('/emprestimo/finalizar', [EmprestimoController::class, 'finalizar'])->name('emprestimo.finalizar');

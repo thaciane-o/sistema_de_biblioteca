@@ -81,12 +81,17 @@
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Principal</div>
                         <a class="nav-link" href="{{ route('home') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-briefcase"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
                             Página inicial
                         </a>
+                        <div class="sb-sidenav-menu-heading">Empréstimos</div>
                         <a class="nav-link" href="{{ route('emprestimo.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-calendar-alt"></i></div>
-                            Empréstimo
+                            Empréstimos
+                        </a>
+                        <a class="nav-link" href="{{ route('emprestimo.status') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-briefcase"></i></div>
+                            Status
                         </a>
                         <div class="sb-sidenav-menu-heading">Cadastros</div>
                         <a class="nav-link collapsed" href="{{ route('pessoa.index') }}">

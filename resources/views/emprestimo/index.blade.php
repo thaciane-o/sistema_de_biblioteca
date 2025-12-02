@@ -2,11 +2,11 @@
     <div class="container-fluid px-4">
         <div class="row">
             <div class="col-6">
-                <h1 class="mt-4">Empréstimo</h1>
+                <h1 class="mt-4">Empréstimos</h1>
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Página inicial</a></li>
-                    <li class="breadcrumb-item">Cadastros</li>
-                    <li class="breadcrumb-item active">Empréstimo</li>
+                    <li class="breadcrumb-item">Empréstimo</li>
+                    <li class="breadcrumb-item active">Cadastros</li>
                 </ol>
             </div>
             <div class="col-6 d-flex justify-content-end align-items-end mb-4">
@@ -48,12 +48,6 @@
                                    style="text-decoration: none">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="#" title="Renovar" class="text-secondary me-2"
-                                   data-bs-toggle="modal" data-bs-target="#modal2"
-                                   data-id="{{ $emprestimo->id }}"
-                                   style="text-decoration: none">
-                                    <i class="fas fa-refresh"></i>
-                                </a>
                                 <a href="{{ route('emprestimo.edit', $emprestimo->id)  }}" title="Atualizar"
                                    class="text-success me-2"><i class="fas fa-edit"></i></a>
                                 <a href="{{ route('emprestimo.destroy', $emprestimo->id) }}"
@@ -79,28 +73,6 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="modal2" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalLabel">Renovar</h5>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row d-flex justify-content-center">
-                            <form method="post" id="formRenovar" action="{{ route('emprestimo.renovar') }}">
-                                @csrf
-                                <input type="hidden" id="renovarEmprestimoId" name="emprestimo_id">
-                                <div class="modal-infos col-12"></div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" form="formRenovar" class="btn btn-primary">Enviar</button>
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
                     </div>
                 </div>
@@ -176,45 +148,6 @@
                             </div>
                             <div class="col-6">
                                 <b>Atualizado em:</b> ${atualizado_em}
-                            </div>
-                        </div>
-                    `);
-                },
-                error: function (error) {
-                    modal.find('.modal-infos').html('<p>Ocorreu um erro ao buscar os dados.</p>');
-                    console.error('Error:', error);
-                }
-            });
-        });
-        $('#modal2').on('show.bs.modal', function (event) {
-            const botao = event.relatedTarget;
-            const id = botao.getAttribute('data-id');
-            var modal = $(this);
-
-            $.ajax({
-                url: "{{ route('emprestimo.dadosRenovacao', ['id' => '__ID__']) }}".replace('__ID__', id),
-                method: 'GET',
-                success: function (data) {
-
-                    $('#renovarEmprestimoId').val(id);
-
-                    let opcoes = '<option selected>Selecione um responsável...</option>';
-
-                    data.funcionarios.forEach(function(funcionario) {
-                        opcoes += `<option value="${funcionario.id}">${funcionario.nome}</option>`;
-                    });
-
-                    modal.find('.modal-infos').html(`
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="select2-floating mb-3 mb-md-0">
-                                    <span class="select2-label">
-                                        Responsável <i class="fa fa-circle icon-required"></i>
-                                    </span>
-                                    <select class="form-select select2" id="inputFuncionario" name="responsavel_id">
-                                        ${opcoes}
-                                    </select>
-                                </div>
                             </div>
                         </div>
                     `);

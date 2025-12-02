@@ -13,45 +13,64 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // Buscar quantas vezes cada livro foi emprestado
-        $qtdEmprestimos = DB::select('SELECT count(livro_id) AS qtdEmprestado, titulo
-                                                FROM emprestimo
-                                                INNER JOIN livro ON (livro.id = emprestimo.livro_id)
-                                                GROUP BY livro_id, titulo');
+        // Buscar quantas vezes cada livro foi emprestado OK OK
+        $qtdEmprestimos = DB::select('SELECT
+                COUNT(livro_id) AS qtdEmprestado,
+                titulo
+            FROM
+                emprestimo
+                INNER JOIN livro ON (livro.id = emprestimo.livro_id)
+            GROUP BY
+                livro_id,
+                titulo');
 
         // Buscar quantos livros cada autor possui
-        $qtdEscritos = DB::select('SELECT count(escrito.id) AS qtdEscritos, autor.id, nome
-                                        FROM autor
-                                        INNER JOIN escrito ON (escrito.autor_id = autor.id)
-                                        GROUP BY autor.id, nome');
+        $qtdEscritos = DB::select('SELECT
+                COUNT(escrito.id) AS qtdEscritos,
+                autor.id,
+                nome
+            FROM
+                autor
+                INNER JOIN escrito ON (escrito.autor_id = autor.id)
+            GROUP BY
+                autor.id,
+                nome');
 
-        // Buscar quais clientes pegaram 10 ou mais livros emprestados
-        $clienteEmprestado = DB::select('SELECT cliente.id, pessoa.nome
-                                                FROM cliente
-                                                INNER JOIN pessoa ON (pessoa.id = cliente.pessoa_id)
-                                                INNER JOIN emprestimo ON (emprestimo.cliente_id = cliente.id)
-                                                GROUP BY cliente.id, pessoa.nome
-                                                HAVING count(emprestimo.id) >= 10');
+        // Buscar quais clientes pegaram 10 ou mais livros emprestados OK
+        $clienteEmprestado = DB::select('SELECT
+                cliente.id,
+                pessoa.nome
+            FROM
+                cliente
+                INNER JOIN pessoa ON (pessoa.id = cliente.pessoa_id)
+                INNER JOIN emprestimo ON (emprestimo.cliente_id = cliente.id)
+            GROUP BY
+                cliente.id,
+                pessoa.nome
+            HAVING
+                COUNT(emprestimo.id) >= 10');
 
-        // Buscar empréstimos atrasados
-        $emprestimosAtrasados = DB::select('SELECT emprestimo.id
-                                                    FROM emprestimo
-                                                    INNER JOIN livro ON (livro.id = emprestimo.livro_id)
-                                                    WHERE emprestimo.dataFimEsperado < NOW()');
+        // Buscar última vez que um cliente pegou um livro emprestado OK
+        $ultimoEmprestimo = DB::select('SELECT
+                pessoa.nome,
+                dataInicio
+            FROM
+                emprestimo
+                INNER JOIN cliente ON (cliente.id = emprestimo.cliente_id)
+                INNER JOIN pessoa ON (pessoa.id = cliente.pessoa_id)
+            WHERE
+                dataInicio = (
+                    SELECT MAX(dataInicio) FROM emprestimo
+                )
+            GROUP BY
+                dataInicio,
+                pessoa.nome');
 
-
-        // Buscar última vez que um cliente pegou um livro emprestado
-        $ultimoEmprestimo = DB::select('SELECT pessoa.nome, dataInicio
-                                                FROM emprestimo
-                                                INNER JOIN cliente ON (cliente.id = emprestimo.cliente_id)
-                                                INNER JOIN pessoa ON (pessoa.id = cliente.pessoa_id)
-                                                WHERE dataInicio = (SELECT MAX(dataInicio) FROM emprestimo)
-                                                GROUP BY dataInicio, pessoa.nome');
-
-        return view('home', ['qtdEmprestimos' => $qtdEmprestimos,
+        return view('home', [
+            'qtdEmprestimos' => $qtdEmprestimos,
             'clienteEmprestado' => $clienteEmprestado,
-            'qtdEscritos' => $qtdEscritos,
-            'emprestimosAtrasados' => $emprestimosAtrasados
+            'qtdEscritos' => $qtdEscritos
+
         ]);
     }
 
