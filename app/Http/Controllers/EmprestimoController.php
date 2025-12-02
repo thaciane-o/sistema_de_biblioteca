@@ -51,9 +51,41 @@ class EmprestimoController extends Controller
      */
     public function create()
     {
-        $livros = DB::select('SELECT id, titulo FROM livro');
-        $clientes = DB::select('SELECT cliente.id, nome FROM cliente INNER JOIN pessoa ON (pessoa.id = cliente.pessoa_id)');
-        $funcionarios = DB::select('SELECT funcionario.id, nome FROM funcionario INNER JOIN pessoa ON (pessoa.id = funcionario.pessoa_id)');
+        $livros = DB::select('
+            SELECT
+                livro.id,
+                livro.titulo,
+                livro.valorEmprestimo
+            FROM
+                livro
+            WHERE
+                livro.qtdEstoque > (
+                    SELECT
+                        COUNT(emprestimo.id) AS emprestimosAtivos
+                    FROM
+                        emprestimo
+                        INNER JOIN livro AS livroAninhado ON (emprestimo.livro_id = livroAninhado.id)
+                    WHERE
+                        emprestimo.dataFimReal IS NULL
+                        AND livroAninhado.id = livro.id
+                )');
+
+        $clientes = DB::select('
+            SELECT
+                cliente.id,
+                nome
+            FROM
+                cliente
+                INNER JOIN pessoa ON (pessoa.id = cliente.pessoa_id)');
+
+        $funcionarios = DB::select('
+            SELECT
+                funcionario.id, nome
+            FROM
+                funcionario
+                INNER JOIN pessoa ON (pessoa.id = funcionario.pessoa_id)
+            WHERE
+                funcionario.dataDemissao IS NULL');
 
         return view('emprestimo.create', ['livros' => $livros, 'clientes' => $clientes, 'funcionarios' => $funcionarios]);
     }
@@ -304,7 +336,7 @@ class EmprestimoController extends Controller
 
     public function status() {
 
-        // Buscar empréstimos a serem devolvidos nos próximos 2 dias OK
+        // Buscar empréstimos a serem devolvidos nos próximos 2 dias
         $emprestimosProximos = DB::select('SELECT
                 emprestimo.id,
                 emprestimo.dataFimEsperado,
@@ -321,7 +353,7 @@ class EmprestimoController extends Controller
             ORDER BY
                 emprestimo.dataFimEsperado ASC');
 
-        // Buscar empréstimos atrasados OK
+        // Buscar empréstimos atrasados
         $emprestimosAtrasados = DB::select('SELECT
                 emprestimo.id,
                 emprestimo.dataFimEsperado,
@@ -338,7 +370,7 @@ class EmprestimoController extends Controller
 
         return view('emprestimo.status', [
             'emprestimosProximos' => $emprestimosProximos,
-            'emprestimosAtrasados' => $emprestimosAtrasados,
+            'emprestimosAtrasados' => $emprestimosAtrasados
         ]);
 
     }

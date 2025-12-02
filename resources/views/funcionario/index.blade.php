@@ -26,6 +26,7 @@
                         <th>MATRÍCULA</th>
                         <th>NOME</th>
                         <th>CPF</th>
+                        <th>STATUS</th>
                         <th>OPÇÕES</th>
                     </tr>
                     </thead>
@@ -35,6 +36,7 @@
                             <td>{{ $funcionario->matricula }}</td>
                             <td>{{ $funcionario->nome }}</td>
                             <td>{{ preg_replace('/(\d{3})(\d{3})(\d{3})(\d{2})/', '$1.$2.$3-$4', $funcionario->cpf) }}</td>
+                            <td>{{ $funcionario->dataDemissao == null ? "Em atividade" : "Demitido" }}</td>
                             <td>
                                 <a href="#" title="Visualizar" class="text-primary me-2"
                                    data-bs-toggle="modal" data-bs-target="#modal"

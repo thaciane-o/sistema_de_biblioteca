@@ -14,8 +14,13 @@ class FuncionarioController extends Controller
      */
     public function index()
     {
-        $funcionarios = DB::select('SELECT funcionario.id, funcionario.matricula, pessoa.nome, pessoa.cpf
-                                            FROM funcionario INNER JOIN pessoa ON (pessoa.id = funcionario.pessoa_id)');
+        $funcionarios = DB::select('
+            SELECT
+                funcionario.id, funcionario.matricula, pessoa.nome,
+                pessoa.cpf, funcionario.dataDemissao
+            FROM
+                funcionario
+                INNER JOIN pessoa ON (pessoa.id = funcionario.pessoa_id)');
 
         return view('funcionario.index', ['funcionarios' => $funcionarios]);
     }

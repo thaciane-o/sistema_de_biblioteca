@@ -11,13 +11,6 @@
             <div class="col-lg-8 m-5">
                 <form method="post" action="{{ route('emprestimo.store') }}">
                     @csrf
-                    <div class="form-floating mb-3">
-                        <input class="form-control required" id="inputValor" type="number" step="0.01"
-                               placeholder="12,34" name="valorPraticado" required/>
-                        <label for="inputValor">
-                            Valor <i class="fa fa-circle icon-required"></i>
-                        </label>
-                    </div>
                     <div class="col-md-12 mb-3">
                         <div class="select2-floating mb-3 mb-md-0">
                             <span class="select2-label">
@@ -26,10 +19,17 @@
                             <select class="form-select select2" id="inputLivro" name="livro_id">
                                 <option selected>Selecione um livro...</option>
                                 @foreach($livros as $livro)
-                                    <option value="{{ $livro->id }}">{{ $livro->titulo }}</option>
+                                    <option value="{{ $livro->id }}">{{ $livro->titulo }} | R$ {{ $livro->valorEmprestimo }}</option>
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control required" id="inputValor" type="number" step="0.01"
+                               placeholder="12,34" name="valorPraticado" required/>
+                        <label for="inputValor">
+                            Valor cobrado <i class="fa fa-circle icon-required"></i>
+                        </label>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6">
