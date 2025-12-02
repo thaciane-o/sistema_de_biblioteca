@@ -102,3 +102,4 @@ Route::get('/emprestimo/dadosRenovacao', [EmprestimoController::class, 'dadosRen
 Route::post('/emprestimo/renovar', [EmprestimoController::class, 'renovar'])->name('emprestimo.renovar');
 Route::get('/emprestimo/status', [EmprestimoController::class, 'status'])->name('emprestimo.status');
 Route::post('/emprestimo/finalizar', [EmprestimoController::class, 'finalizar'])->name('emprestimo.finalizar');
+Route::post('/emprestimo/filtrarPeriodo', [EmprestimoController::class, 'filtrarPeriodo'])->name('emprestimo.filtrarPeriodo');

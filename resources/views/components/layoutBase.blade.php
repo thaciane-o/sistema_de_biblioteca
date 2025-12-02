@@ -82,7 +82,7 @@
                         <div class="sb-sidenav-menu-heading">Principal</div>
                         <a class="nav-link" href="{{ route('home') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
-                            Página inicial
+                            Dashboard
                         </a>
                         <div class="sb-sidenav-menu-heading">Empréstimos</div>
                         <a class="nav-link" href="{{ route('emprestimo.index') }}">

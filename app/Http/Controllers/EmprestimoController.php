@@ -15,7 +15,7 @@ class EmprestimoController extends Controller
     public function index()
     {
         $emprestimos = DB::select('SELECT
-                emprestimo.id, emprestimo.dataInicio, emprestimo.dataFimEsperado, emprestimo.renovacoes,
+                emprestimo.id, emprestimo.dataInicio, emprestimo.dataFimEsperado, emprestimo.dataFimReal,
                 livro.titulo, cliente_nome, GROUP_CONCAT(funcionario_nome SEPARATOR ", ") AS funcionario_nome
             FROM
                 emprestimo
@@ -382,5 +382,56 @@ class EmprestimoController extends Controller
             DB::rollBack();
             return back()->with('error', "Erro ao realizar a finalização!");
         }
+    }
+
+    public function filtrarPeriodo(Request $request) {
+
+        $validator = Validator::make($request->all(), [
+            'periodo' => 'required|date',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('emprestimo.index')->with('error', 'Confira os campos e tente novamente!');
+        }
+
+        [$ano, $mes] = explode('-', $request->input('periodo'));
+
+        $emprestimosPeriodo = DB::select('
+            SELECT
+                emprestimo.id, emprestimo.dataInicio, emprestimo.dataFimEsperado, emprestimo.dataFimReal,
+                livro.titulo, cliente_nome, GROUP_CONCAT(funcionario_nome SEPARATOR ", ") AS funcionario_nome
+            FROM
+                emprestimo
+                INNER JOIN livro ON (livro.id = emprestimo.livro_id)
+                INNER JOIN responsavel_emprestimo ON (emprestimo.id = responsavel_emprestimo.emprestimo_id)
+                JOIN
+                    (
+                        SELECT
+                            funcionario.id AS funcionario_id, pessoa.nome AS funcionario_nome
+                        FROM
+                            funcionario
+                        INNER JOIN
+                            pessoa ON (pessoa.id = funcionario.pessoa_id)
+                    ) AS funcionario ON (funcionario.funcionario_id = responsavel_emprestimo.responsavel_id)
+                JOIN
+                    (
+                        SELECT
+                            cliente.id AS cliente_id, pessoa.nome AS cliente_nome
+                        FROM
+                            cliente
+                        INNER JOIN
+                            pessoa ON (pessoa.id = cliente.pessoa_id)
+                    ) AS cliente ON (cliente.cliente_id = emprestimo.cliente_id)
+            WHERE
+                MONTH(emprestimo.dataInicio) = ?
+                AND YEAR(emprestimo.dataInicio) = ?
+            GROUP BY
+                emprestimo.id, emprestimo.dataInicio, emprestimo.dataFimEsperado,
+                emprestimo.renovacoes, livro.titulo, cliente_nome
+            ORDER BY emprestimo.dataInicio ASC;
+        ', [$mes, $ano]);
+
+        return view('emprestimo.index', ['emprestimos' => $emprestimosPeriodo]);
+
     }
 }

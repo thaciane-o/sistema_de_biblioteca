@@ -10,8 +10,15 @@
                 </ol>
             </div>
             <div class="col-6 d-flex justify-content-end align-items-end mb-4">
+                @if (request()->routeIs('emprestimo.filtrarPeriodo'))
+                    <a class="btn btn-danger btn-block px-3 py-2 me-3" href="{{ route('emprestimo.index') }}"><i
+                            class="fas fa-trash me-1"></i> Remover filtro</a>
+                @endif
+                <a class="btn btn-primary btn-block px-3 py-2 me-3"
+                   data-bs-toggle="modal" data-bs-target="#modal2"><i
+                   class="fas fa-filter me-1"></i> Filtrar</a>
                 <a class="btn btn-primary btn-block px-3 py-2" href="{{ route('emprestimo.create') }}"> <i
-                        class="fas fa-plus me-1"></i> Criar</a>
+                   class="fas fa-plus me-1"></i> Criar</a>
             </div>
         </div>
         <div class="card mb-4">
@@ -28,7 +35,7 @@
                         <th>CLIENTE</th>
                         <th>DATA DO EMPRÉSTIMO</th>
                         <th>DATA DA DEVOLUÇÃO</th>
-                        <th>RENOVAÇÕES</th>
+                        <th>STATUS</th>
                         <th>OPÇÕES</th>
                     </tr>
                     </thead>
@@ -40,7 +47,7 @@
                             <td>{{ $emprestimo->cliente_nome }}</td>
                             <td>{{ date('d/m/Y', strtotime($emprestimo->dataInicio)) }}</td>
                             <td>{{ date('d/m/Y', strtotime($emprestimo->dataFimEsperado)) }}</td>
-                            <td>{{ $emprestimo->renovacoes }}</td>
+                            <td>{{ $emprestimo->dataFimReal == null ? "Em andamento" : "Finalizado" }}</td>
                             <td>
                                 <a href="#" title="Visualizar" class="text-primary me-2"
                                    data-bs-toggle="modal" data-bs-target="#modal"
@@ -78,8 +85,47 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="modal2" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Filtrar por período</h5>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row d-flex justify-content-center">
+                            <div class="modal-infos col-9">
+                                <form method="post" id="formFiltrar" action="{{ route('emprestimo.filtrarPeriodo') }}">
+                                    @csrf
+                                    <span class="select2-label">
+                                        Período <i class="fa fa-circle icon-required"></i>
+                                    </span>
+                                    <input class="form-control" type="month" id="inputPeriodo" name="periodo" required>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" form="formFiltrar" class="btn btn-primary">Enviar</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+            new simpleDatatables.DataTable("#datatablesSimple", {
+                labels: {
+                    placeholder: "Buscar...",
+                    perPage: "itens por página",
+                    noRows: "Nenhum resultado encontrado",
+                    info: "Mostrando {start} a {end} de {rows} entradas"
+                }
+            });
+        });
+
         $('#modal').on('show.bs.modal', function (event) {
             const botao = event.relatedTarget;
             const id = botao.getAttribute('data-id');
