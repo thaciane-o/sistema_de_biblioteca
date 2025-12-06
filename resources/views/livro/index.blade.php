@@ -128,6 +128,11 @@
                                 <b>Quantidade em estoque:</b> ${data.livro.qtdEstoque}
                             </div>
                         </div>
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <b>Descrição:</b> ${data.livro.descricao ?? "<i>Sem descrição</i>"}
+                            </div>
+                        </div>
                         <hr>
                         <div class="row mb-3">
                             <div class="col-6">

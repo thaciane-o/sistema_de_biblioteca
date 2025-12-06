@@ -87,8 +87,12 @@
 
                     const criado_em = formatarData(data.cliente.created_at);
                     const atualizado_em = formatarData(data.cliente.updated_at);
-                    const cpf = formatarCPF(data.pessoa.cpf);
-                    const telefone = formatarTelefone(data.pessoa.telefone);
+                    const cpf = formatarCPF(data.cliente.cpf);
+                    const telefone = formatarTelefone(data.cliente.telefone);
+
+                    const ultimo_emprestimo = data.ultimoEmprestimo != null
+                        ? formatarData(data.ultimoEmprestimo.ultimoEmprestimo) +" | "+ data.ultimoEmprestimo.titulo
+                        : "<i>Esse cliente não fez empréstimos</i>";
 
                     modal.find('.modal-infos').html(`
                         <div class="row mb-3">
@@ -98,7 +102,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-12">
-                                <b>Nome:</b> ${data.pessoa.nome}
+                                <b>Nome:</b> ${data.cliente.nome}
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -111,7 +115,12 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-12">
-                                <b>Endereço:</b> ${data.pessoa.endereco}
+                                <b>Último empréstimo:</b> ${ultimo_emprestimo}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <b>Endereço:</b> ${data.cliente.endereco}
                             </div>
                         </div>
                         <hr>

@@ -14,8 +14,12 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = DB::select('SELECT cliente.id, cliente.matricula, pessoa.nome, pessoa.cpf
-                                        FROM cliente INNER JOIN pessoa ON (pessoa.id = cliente.pessoa_id)');
+        $clientes = DB::select('
+            SELECT
+                cliente.id, cliente.matricula, pessoa.nome, pessoa.cpf
+            FROM
+                cliente
+                INNER JOIN pessoa ON (pessoa.id = cliente.pessoa_id)');
 
         return view('cliente.index', ['clientes' => $clientes]);
     }
@@ -68,12 +72,40 @@ class ClienteController extends Controller
      */
     public function show(string $id)
     {
-        $cliente = DB::select('SELECT * FROM cliente WHERE id = ?', [$id]);
-        $pessoa = DB::select('SELECT * FROM pessoa WHERE id = ?', [$cliente[0]->pessoa_id]);
+        $cliente = DB::select('
+            SELECT
+                cliente.id as cliente_id,
+                cliente.*,
+                pessoa.id as pessoa_id_real,
+                pessoa.*
+            FROM
+                cliente
+                INNER JOIN pessoa ON (pessoa.id = cliente.pessoa_id)
+            WHERE
+                cliente.id = ?
+        ', [$id]);
+
+        $ultimoEmprestimo = DB::select('
+            SELECT
+                livro.titulo as titulo,
+                dataInicio as ultimoEmprestimo
+            FROM
+                emprestimo
+                INNER JOIN livro ON (livro.id = emprestimo.livro_id)
+            WHERE
+                dataInicio = (
+                    SELECT
+                        MAX(dataInicio)
+                    FROM
+                        emprestimo
+                    WHERE
+                        cliente_id = ?
+                )
+        ', [$id]);
 
         return response()->json([
             'cliente' => $cliente[0],
-            'pessoa' => $pessoa[0]
+            'ultimoEmprestimo' => $ultimoEmprestimo[0] ?? null
         ]);
     }
 
