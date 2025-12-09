@@ -37,7 +37,7 @@ class HomeController extends Controller
                 pessoa.nome
             ORDER BY
                 totalEmprestimos DESC
-            LIMIT 10;');
+            LIMIT 10');
 
         $faturamentoEsseMes = DB::select('
             SELECT
@@ -50,7 +50,7 @@ class HomeController extends Controller
             WHERE
                 MONTH(emprestimo.dataFimReal) = MONTH(NOW())
             GROUP BY
-                livro_id, livro.titulo;
+                livro_id, livro.titulo
         ');
 
         $faturamentoMesPassado = DB::select('

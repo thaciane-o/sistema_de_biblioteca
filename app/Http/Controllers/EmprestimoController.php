@@ -470,7 +470,7 @@ class EmprestimoController extends Controller
             GROUP BY
                 emprestimo.id, emprestimo.dataInicio, emprestimo.dataFimEsperado,
                 emprestimo.renovacoes, livro.titulo, cliente_nome
-            ORDER BY emprestimo.dataInicio ASC;
+            ORDER BY emprestimo.dataInicio ASC
         ', [$mes, $ano]);
 
         return view('emprestimo.index', ['emprestimos' => $emprestimosPeriodo]);
