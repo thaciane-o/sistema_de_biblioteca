@@ -286,11 +286,21 @@ class EmprestimoController extends Controller
         }
     }
 
-    public function dadosRenovacao() {
+    public function dadosRenovacao(string $id) {
         $funcionarios = DB::select('SELECT funcionario.id, nome FROM funcionario INNER JOIN pessoa ON (pessoa.id = funcionario.pessoa_id)');
 
+        $valorTotal = DB::select('
+            SELECT
+                valorPraticado * (renovacoes + 1) AS valor
+            FROM
+                emprestimo
+            WHERE
+                id = ?
+        ', [$id]);
+
         return response()->json([
-            'funcionarios' => $funcionarios
+            'funcionarios' => $funcionarios,
+            'valorTotal' => $valorTotal[0]
         ]);
     }
 

@@ -92,7 +92,7 @@ class FuncionarioController extends Controller
     public function edit(string $id)
     {
         $funcionario = DB::select('SELECT * FROM funcionario WHERE id = ?', [$id]);
-        $pessoas = DB::select('SELECT id, nome FROM pessoa');
+        $pessoas = DB::select('SELECT id, nome FROM pessoa WHERE id = ?', [$funcionario[0]->pessoa_id]);
 
         return view('funcionario.edit', ['funcionario' => $funcionario[0], 'pessoas' => $pessoas]);
     }

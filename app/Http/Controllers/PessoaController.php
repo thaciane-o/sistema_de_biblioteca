@@ -110,7 +110,7 @@ class PessoaController extends Controller
                     $request->input('nome'),
                     $request->input('cpf'),
                     $request->input('telefone'),
-                    $request->input('telefone'),
+                    $request->input('endereco'),
                     $id
                 ]
             );

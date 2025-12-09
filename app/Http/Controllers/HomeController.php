@@ -24,18 +24,6 @@ class HomeController extends Controller
                 livro_id,
                 titulo');
 
-        // Buscar quantos livros cada autor possui
-        $qtdEscritos = DB::select('SELECT
-                COUNT(escrito.id) AS qtdEscritos,
-                autor.id,
-                nome
-            FROM
-                autor
-                INNER JOIN escrito ON (escrito.autor_id = autor.id)
-            GROUP BY
-                autor.id,
-                nome');
-
         // Buscar os 10 clientes que fizeram mais empréstimos
         $clienteEmprestado = DB::select('
             SELECT
@@ -53,27 +41,11 @@ class HomeController extends Controller
                 totalEmprestimos DESC
             LIMIT 10;');
 
-        // Buscar última vez que um cliente pegou um livro emprestado
-        $ultimoEmprestimo = DB::select('SELECT
-                pessoa.nome,
-                dataInicio
-            FROM
-                emprestimo
-                INNER JOIN cliente ON (cliente.id = emprestimo.cliente_id)
-                INNER JOIN pessoa ON (pessoa.id = cliente.pessoa_id)
-            WHERE
-                dataInicio = (
-                    SELECT MAX(dataInicio) FROM emprestimo
-                )
-            GROUP BY
-                dataInicio,
-                pessoa.nome');
-
         $faturamentoEsseMes = DB::select('
             SELECT
                 livro_id,
                 livro.titulo,
-                SUM(valorPraticado) AS faturamento
+                SUM(valorPraticado * (renovacoes + 1)) AS faturamento
             FROM
                 emprestimo
                 INNER JOIN livro ON (livro.id = emprestimo.livro_id)
@@ -87,7 +59,7 @@ class HomeController extends Controller
             SELECT
                 livro_id,
                 livro.titulo,
-                SUM(valorPraticado) AS faturamento
+                SUM(valorPraticado * (renovacoes + 1)) AS faturamento
             FROM
                 emprestimo
                 INNER JOIN livro ON (livro.id = emprestimo.livro_id)

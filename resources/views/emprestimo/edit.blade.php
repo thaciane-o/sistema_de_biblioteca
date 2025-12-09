@@ -101,7 +101,10 @@
                                 <select class="form-select select2" id="inputCliente" name="cliente_id">
                                     <option>Selecione um cliente...</option>
                                     @foreach($clientes as $cliente)
-                                        <option value="{{ $cliente->id }}" selected>{{ $cliente->nome }}</option>
+                                        <option value="{{ $cliente->id }}"
+                                            @if($cliente->id == $emprestimo->cliente_id) selected @endif>
+                                            {{ $cliente->nome }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>

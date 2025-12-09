@@ -123,7 +123,7 @@
                     </div>
                     <div class="form-floating mb-3">
                         <textarea class="form-control" id="inputDescricao" name="descricao" rows="6"
-                                  placeholder="12" value="{{ $livro->descricao }}"></textarea>
+                                  placeholder="12">{{ $livro->descricao }}</textarea>
                         <label for="inputDescricao">
                             Descrição
                         </label>

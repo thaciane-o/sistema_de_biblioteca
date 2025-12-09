@@ -341,6 +341,11 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-12 mt-3">
+                                <span class="select2-label">
+                                    Valor a cobrar do cliente: R$ ${data.valorTotal.valor}
+                                </span>
+                            </div>
                         </div>
                     `);
                 },
