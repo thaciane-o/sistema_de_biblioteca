@@ -13,7 +13,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // Buscar quantas vezes cada livro foi emprestado OK OK
         $qtdEmprestimos = DB::select('SELECT
                 COUNT(livro_id) AS qtdEmprestado,
                 titulo
@@ -24,7 +23,6 @@ class HomeController extends Controller
                 livro_id,
                 titulo');
 
-        // Buscar os 10 clientes que fizeram mais empréstimos
         $clienteEmprestado = DB::select('
             SELECT
                 cliente.id,
