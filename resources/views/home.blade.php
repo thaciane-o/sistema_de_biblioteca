@@ -22,13 +22,13 @@
             <div class="col-6">
                 <canvas id="faturamento_esse_mes"></canvas>
                 <div class="alert alert-secondary">
-                    <strong>Soma total de faturamentos esse mês:</strong> R$ {{ $totalEsseMes }}
+                    <strong>Soma total de faturamentos esse mês:</strong> R$ {{ number_format($totalEsseMes, 2, ',', '.') }}
                 </div>
             </div>
             <div class="col-6">
                 <canvas id="faturamento_mes_passado"></canvas>
                 <div class="alert alert-secondary">
-                    <strong>Soma total de faturamentos do mês passado:</strong> R$ {{ $totalMesPassado }}
+                    <strong>Soma total de faturamentos do mês passado:</strong> R$ {{ number_format($totalMesPassado, 2, ',', '.') }}
                 </div>
             </div>
         </div>

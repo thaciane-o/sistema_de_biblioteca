@@ -333,7 +333,7 @@
                             </div>
                             <div class="col-md-12 mt-3">
                                 <span class="select2-label">
-                                    Valor a cobrar do cliente: R$ ${data.valorTotal.valor}
+                                    Valor a cobrar do cliente: R$ ${Number(data.valorTotal.valor).toFixed(2)}
                                 </span>
                             </div>
                         </div>
