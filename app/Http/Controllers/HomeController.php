@@ -13,6 +13,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // Pega a quantidade de empréstimos de cada livro
         $qtdEmprestimos = DB::select('SELECT
                 COUNT(livro_id) AS qtdEmprestado,
                 titulo
@@ -23,6 +24,7 @@ class HomeController extends Controller
                 livro_id,
                 titulo');
 
+        // Pega os 10 clientes que mais fizeram empréstimos
         $clienteEmprestado = DB::select('
             SELECT
                 cliente.id,
@@ -39,6 +41,7 @@ class HomeController extends Controller
                 totalEmprestimos DESC
             LIMIT 10');
 
+        // Pega o faturamento total desse mês
         $faturamentoEsseMes = DB::select('
             SELECT
                 livro_id,
@@ -53,6 +56,7 @@ class HomeController extends Controller
                 livro_id, livro.titulo
         ');
 
+        // Pega o faturamento total do mês passado
         $faturamentoMesPassado = DB::select('
             SELECT
                 livro_id,
@@ -67,10 +71,10 @@ class HomeController extends Controller
                 livro_id, livro.titulo
         ');
 
+        // Calcula soma dos faturamentos
         $totalEsseMes = array_reduce($faturamentoEsseMes, function ($carry, $item) {
             return $carry + $item->faturamento;
         }, 0);
-
         $totalMesPassado = array_reduce($faturamentoMesPassado, function ($carry, $item) {
             return $carry + $item->faturamento;
         }, 0);

@@ -51,6 +51,7 @@ class EmprestimoController extends Controller
      */
     public function create()
     {
+        // Busca os livros que não estão em empréstimo
         $livros = DB::select('
             SELECT
                 livro.id,
@@ -70,6 +71,7 @@ class EmprestimoController extends Controller
                         AND livroAninhado.id = livro.id
                 )');
 
+        // Lista de clientes
         $clientes = DB::select('
             SELECT
                 cliente.id,
@@ -78,6 +80,7 @@ class EmprestimoController extends Controller
                 cliente
                 INNER JOIN pessoa ON (pessoa.id = cliente.pessoa_id)');
 
+        // Lista de funcionários
         $funcionarios = DB::select('
             SELECT
                 funcionario.id, nome
@@ -287,8 +290,10 @@ class EmprestimoController extends Controller
     }
 
     public function dadosRenovacao(string $id) {
+        // Pega a lsita de funcionários
         $funcionarios = DB::select('SELECT funcionario.id, nome FROM funcionario INNER JOIN pessoa ON (pessoa.id = funcionario.pessoa_id)');
 
+        // Pega o valor total do empréstimo
         $valorTotal = DB::select('
             SELECT
                 valorPraticado * (renovacoes + 1) AS valor
